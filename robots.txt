@@ -1,0 +1,13 @@
+# robots.txt - BeNudea
+# https://www.benudea.com/
+
+User-agent: *
+Allow: /
+
+# Bloqueos técnicos habituales
+Disallow: /*.json$
+Disallow: /admin/
+Disallow: /backup_*.html
+
+# Sitemap
+Sitemap: https://www.benudea.com/sitemap.xml

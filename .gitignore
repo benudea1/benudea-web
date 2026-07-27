@@ -1,0 +1,26 @@
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*~
+
+# Backups y borradores
+backup_*.html
+backup_*/
+*.bak
+
+# Node (por si se añade build más adelante)
+node_modules/
+.next/
+.vercel/
+.env
+.env.local
+
+# Logs
+*.log
+npm-debug.log*
