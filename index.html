@@ -5405,8 +5405,8 @@ html, body{overflow-x: hidden !important;}
   }
   .hero-headline{font-size: clamp(38px, 10vw, 56px) !important;}
   
-  /* Ocultar segundo slide (hero-slide-full) en móvil - simplifica */
-  .hero-slide-full{display: none !important;}
+  /* Segundo slide visible */
+  .hero-slide-full{display: block !important;}
 
   /* ==== FRASES DESTACADAS (brand-observation-image): AMPLIAR ==== */
   .brand-observation-image{
@@ -6160,8 +6160,2060 @@ html, body{overflow-x: hidden !important;}
   html, body{overflow-x: hidden !important; overflow-y: visible !important;}
 }
 
+
+
+/* ============ ITER 63: fixes bugs móviles reales ============ */
+@media (max-width: 900px){
+  
+  /* Bug 1: Ocultar lente del zoom en móvil (no tiene sentido en táctil) */
+  #prodZoomLens{display: none !important;}
+  .prod-carousel-main.zooming #prodZoomLens{display: none !important;}
+  .prod-carousel-main.zooming img{transform: none !important;}
+  .prod-carousel-main{cursor: default !important;}
+  
+  /* Bug 2: frases destacadas al 100% ancho */
+  .brand-observation-image{
+    padding: 10px 8px !important;
+    margin: 30px auto !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  .brand-observation-image img{
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    min-width: 0 !important;
+  }
+  
+  /* Bug 3: tabla Be-C Complex - texto que respire, no se corte */
+  .hero-slide-panel{
+    padding: 22px 16px !important;
+    overflow: visible !important;
+  }
+  .hero-cualidades-v2{
+    padding: 0 !important;
+    width: 100% !important;
+  }
+  .hero-cualidades-v2 li{
+    display: grid !important;
+    grid-template-columns: 80px 1fr !important;
+    gap: 8px !important;
+    padding: 10px 0 !important;
+    border-bottom: 1px solid rgba(127, 151, 149, 0.15) !important;
+    align-items: baseline !important;
+    width: 100% !important;
+  }
+  .hero-cualidades-v2 .lbl{
+    font-size: 10px !important;
+    letter-spacing: 1px !important;
+    color: var(--teal) !important;
+    text-transform: uppercase !important;
+    white-space: nowrap !important;
+  }
+  .hero-cualidades-v2 .val{
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
+    -webkit-hyphens: auto !important;
+    max-width: 100% !important;
+    white-space: normal !important;
+  }
+  
+  /* Bug 4: sección "La piel como espejo" - ocultar los "VER MÁS" duplicados y arreglar layout */
+  .piel2-section .piel2-cols{
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+  .piel2-items{
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+  .piel2-item{
+    padding: 16px !important;
+    border: 1px solid var(--teal-light) !important;
+    border-radius: 6px !important;
+    background: #fff !important;
+    cursor: pointer;
+  }
+  .piel2-item-body{
+    display: none !important;
+  }
+  .piel2-item.active .piel2-item-body{
+    display: block !important;
+    margin-top: 12px !important;
+  }
+  .piel2-item-header{
+    display: flex !important;
+    gap: 10px !important;
+    align-items: baseline !important;
+  }
+  .piel2-item-num{
+    color: var(--orange-brand) !important;
+    font-weight: 600 !important;
+  }
+  
+  /* Extra: garantizar el modal de aviso responsive */
+  .modal-aviso-box{
+    width: 95% !important;
+    max-width: 95% !important;
+    padding: 24px 20px !important;
+  }
+}
+
+
+
+/* ============ ITER 64: FIXES AGRESIVOS MÓVIL ============ */
+
+/* --- HAMBURGER MÓVIL FIJO (visible siempre, position: fixed) --- */
+.mobile-hamburger{
+  display: none;
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  width: 48px;
+  height: 48px;
+  padding: 12px;
+  background: #fff;
+  border: 1.5px solid var(--teal);
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  cursor: pointer;
+  z-index: 999999;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  gap: 5px;
+}
+.mobile-hamburger span{
+  display: block;
+  height: 2.5px;
+  background: var(--teal-dark);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  pointer-events: none;
+}
+.mobile-hamburger.active span:nth-child(1){transform: translateY(7px) rotate(45deg);}
+.mobile-hamburger.active span:nth-child(2){opacity: 0;}
+.mobile-hamburger.active span:nth-child(3){transform: translateY(-7px) rotate(-45deg);}
+
+/* --- OVERLAY OSCURO detrás del menú --- */
+.mobile-menu-overlay{
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 999997;
+}
+.mobile-menu-overlay.open{display: block;}
+
+/* --- PANEL DEL MENÚ deslizante desde la derecha --- */
+.mobile-menu-panel{
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 82%;
+  max-width: 340px;
+  background: #fff;
+  z-index: 999998;
+  padding: 80px 30px 30px;
+  box-shadow: -4px 0 20px rgba(0,0,0,0.2);
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+.mobile-menu-panel.open{
+  display: block;
+  transform: translateX(0);
+}
+.mobile-menu-close{
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  font-size: 32px;
+  color: var(--carbon);
+  cursor: pointer;
+  line-height: 1;
+}
+.mobile-menu-nav{
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.mobile-menu-nav a{
+  display: block;
+  padding: 16px 12px;
+  color: var(--carbon);
+  text-decoration: none;
+  font-family: 'Mona Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  border-bottom: 1px solid var(--teal-light);
+  transition: color 0.2s ease;
+}
+.mobile-menu-nav a:hover,
+.mobile-menu-nav a:active{color: var(--orange-brand);}
+
+@media (max-width: 900px){
+  .mobile-hamburger{display: flex !important;}
+  
+  /* Ocultar el hamburger antiguo si aún queda alguno */
+  nav .nav-hamburger, nav button.nav-hamburger{display: none !important;}
+  
+  /* ==== HERO 1: texto SOBRE la imagen (como desktop) ==== */
+  .hero--editorial,
+  section.hero.hero--editorial{
+    display: block !important;
+    position: relative !important;
+    min-height: 90vh !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+  .hero-carousel{
+    position: relative !important;
+    height: 100vh !important;
+    min-height: 600px !important;
+    max-height: 800px !important;
+    display: block !important;
+  }
+  .hero-slide{
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+  }
+  .hero-slide.active{
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    z-index: 2;
+  }
+  .hero-editorial-img{
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+    z-index: 1;
+  }
+  .hero-editorial-img img{
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center 25% !important;
+  }
+  /* Overlay oscuro sutil para legibilidad */
+  .hero-editorial-img::after{
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.5) 50%, rgba(0,0,0,0.15) 100%);
+  }
+  .hero-editorial-text{
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    z-index: 3;
+    display: flex !important;
+    align-items: center !important;
+    padding: 60px 24px !important;
+    background: transparent !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+  .hero-inner{
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    background: transparent !important;
+  }
+  .hero-headline{
+    font-size: clamp(48px, 14vw, 72px) !important;
+    color: var(--teal-dark) !important;
+    line-height: 0.95 !important;
+    text-shadow: 0 1px 3px rgba(255,255,255,0.4);
+  }
+  .hero-aveces, .hero-pide{
+    text-shadow: 0 1px 3px rgba(255,255,255,0.4);
+  }
+
+  /* ==== HERO 2: SLIDE MESA COCINA - imagen bien visible + tabla + botones ==== */
+  .hero-slide-full{
+    display: block !important;
+    background: #F7F4F0 !important;
+    position: absolute !important;
+    inset: 0 !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .hero-slide-full.active{opacity: 1 !important; pointer-events: auto !important;}
+  .hero-slide-bg-img{
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    height: 40vh !important;
+    min-height: 280px !important;
+    max-height: 380px !important;
+    background: none !important;
+    background-image: none !important;
+    overflow: hidden !important;
+  }
+  .hero-slide-bg-img img{
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+  }
+  .hero-panel-wrapper{
+    position: relative !important;
+    padding: 20px 16px 30px !important;
+    width: 100% !important;
+    background: #F7F4F0 !important;
+    top: auto !important; left: auto !important; right: auto !important; bottom: auto !important;
+  }
+  .hero-slide-panel{
+    background: #fff !important;
+    padding: 20px 16px !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important;
+    border-radius: 6px !important;
+    max-width: 100% !important;
+  }
+  .hero-cualidades-v2 li{
+    display: grid !important;
+    grid-template-columns: 75px 1fr !important;
+    gap: 6px !important;
+    padding: 8px 0 !important;
+    align-items: baseline !important;
+    border-bottom: 1px solid rgba(127,151,149,0.15) !important;
+  }
+  .hero-cualidades-v2 .lbl{
+    font-size: 9.5px !important;
+    letter-spacing: 1.2px !important;
+  }
+  .hero-cualidades-v2 .val{
+    font-size: 12.5px !important;
+    line-height: 1.35 !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
+    hyphens: auto !important;
+  }
+  /* Botones bien visibles */
+  .hero-btns-row{
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    margin-top: 18px !important;
+    padding: 0 !important;
+  }
+  .btn-hero-primary,
+  .btn-hero-secondary,
+  .btn-below-panel{
+    display: block !important;
+    width: 100% !important;
+    padding: 14px 18px !important;
+    font-size: 13px !important;
+    min-height: 48px !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+  }
+  .btn-hero-primary{
+    background: var(--orange-brand) !important;
+    color: #fff !important;
+    border: none !important;
+  }
+  .btn-hero-secondary,
+  .btn-below-panel{
+    background: transparent !important;
+    color: var(--teal-dark) !important;
+    border: 1.5px solid var(--teal) !important;
+    text-decoration: none !important;
+  }
+
+  /* ==== FRASES DESTACADAS FULL WIDTH ==== */
+  .brand-observation-image{
+    padding: 0 !important;
+    margin: 30px 0 !important;
+    max-width: 100vw !important;
+    width: 100vw !important;
+    margin-left: calc(-50vw + 50%) !important;
+  }
+  .brand-observation-image img{
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    margin: 0 !important;
+  }
+}
+
+/* ==== MODAL IMAGEN FULLSCREEN (para móvil, imágenes producto legibles) ==== */
+.img-fullscreen-modal{
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 99999;
+  padding: 60px 8px 40px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.img-fullscreen-modal.open{display: block;}
+.img-fullscreen-close{
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  font-size: 28px;
+  cursor: pointer;
+  z-index: 100000;
+  line-height: 1;
+}
+.img-fullscreen-content{
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pinch-zoom pan-x pan-y;
+}
+.img-fullscreen-content img{
+  width: 100%;
+  height: auto;
+  display: block;
+  min-width: 100%;
+}
+.img-fullscreen-hint{
+  position: fixed;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  text-align: center;
+  color: rgba(255,255,255,0.7);
+  font-size: 11px;
+  font-family: 'Mona Sans', sans-serif;
+  pointer-events: none;
+}
+
+
+
+/* ============ ITER 65: HAMBURGER PANEL VISIBLE + HERO OVERLAY FORZADO ============ */
+
+/* PANEL DEL MENÚ MÓVIL: forzar visibilidad con máxima especificidad */
+html body div#mobileMenuPanel{
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 82% !important;
+  max-width: 340px !important;
+  background: #fff !important;
+  z-index: 999998 !important;
+  padding: 80px 30px 30px !important;
+  box-shadow: -4px 0 20px rgba(0,0,0,0.25) !important;
+  overflow-y: auto !important;
+  transform: translateX(100%) !important;
+  visibility: hidden !important;
+  transition: transform 0.35s ease, visibility 0.35s !important;
+  display: block !important;
+  pointer-events: none !important;
+}
+html body div#mobileMenuPanel.open{
+  transform: translateX(0) !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+html body div#mobileMenuOverlay{
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(0,0,0,0.55) !important;
+  z-index: 999997 !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transition: opacity 0.35s ease, visibility 0.35s !important;
+  display: block !important;
+  pointer-events: none !important;
+}
+html body div#mobileMenuOverlay.open{
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+/* Los links del menú móvil */
+.mobile-menu-panel .mobile-menu-nav{
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+}
+.mobile-menu-panel .mobile-menu-nav a{
+  display: block !important;
+  padding: 16px 12px !important;
+  color: #4F4E50 !important;
+  text-decoration: none !important;
+  font-family: 'Mona Sans', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  border-bottom: 1px solid #DCE9E1 !important;
+}
+.mobile-menu-panel .mobile-menu-nav a:active,
+.mobile-menu-panel .mobile-menu-nav a:hover{
+  color: #EB5C2E !important;
+  background: rgba(235, 92, 46, 0.05) !important;
+}
+
+/* ============ HERO MUJER - TEXTO SOBRE IMAGEN (FORZADO) ============ */
+@media (max-width: 900px){
+  
+  html body section.hero.hero--editorial{
+    display: block !important;
+    position: relative !important;
+    min-height: 100vh !important;
+    max-height: none !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: #F7F4F0 !important;
+  }
+  html body .hero-carousel{
+    position: relative !important;
+    height: 100vh !important;
+    min-height: 640px !important;
+    display: block !important;
+    overflow: hidden !important;
+  }
+  html body .hero-slide{
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    flex-direction: unset !important;
+    order: unset !important;
+    transition: opacity 0.5s ease !important;
+  }
+  html body .hero-slide.active{
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    z-index: 2 !important;
+  }
+  
+  /* Imagen mujer: fondo full pantalla */
+  html body .hero-slide .hero-editorial-img{
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    order: unset !important;
+    z-index: 1 !important;
+    overflow: hidden !important;
+  }
+  html body .hero-slide .hero-editorial-img img{
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center 30% !important;
+    display: block !important;
+    max-width: none !important;
+  }
+  
+  /* Texto: overlay sobre la imagen */
+  html body .hero-slide .hero-editorial-text{
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    inset: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100% !important;
+    padding: 80px 24px 60px !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    background: linear-gradient(to bottom, rgba(247, 244, 240, 0.85) 0%, rgba(247, 244, 240, 0.5) 50%, rgba(0, 0, 0, 0.15) 100%) !important;
+    z-index: 3 !important;
+    order: unset !important;
+    flex-shrink: unset !important;
+  }
+  html body .hero-slide .hero-inner{
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+  html body .hero-slide .hero-headline{
+    font-size: clamp(52px, 15vw, 82px) !important;
+    color: #5A6E6D !important;
+    text-shadow: 0 2px 8px rgba(255,255,255,0.5) !important;
+    line-height: 0.95 !important;
+  }
+  html body .hero-slide .hero-aveces,
+  html body .hero-slide .hero-pide{
+    text-shadow: 0 1px 4px rgba(255,255,255,0.5) !important;
+  }
+  
+  /* HERO SLIDE 2 (cocina) - también con position: absolute correcto */
+  html body .hero-slide.hero-slide-full{
+    display: block !important;
+    background: #F7F4F0 !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding: 0 !important;
+  }
+  html body .hero-slide.hero-slide-full.active{
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+  html body .hero-slide.hero-slide-full .hero-slide-bg-img{
+    position: relative !important;
+    inset: unset !important;
+    top: unset !important; left: unset !important; right: unset !important; bottom: unset !important;
+    display: block !important;
+    width: 100% !important;
+    height: 42vh !important;
+    min-height: 280px !important;
+    max-height: 380px !important;
+    background: none !important;
+    background-image: none !important;
+    overflow: hidden !important;
+    order: unset !important;
+  }
+  html body .hero-slide.hero-slide-full .hero-slide-bg-img img{
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+    position: relative !important;
+  }
+  html body .hero-slide.hero-slide-full .hero-panel-wrapper{
+    position: relative !important;
+    inset: unset !important;
+    top: unset !important; left: unset !important; right: unset !important; bottom: unset !important;
+    padding: 20px 16px 30px !important;
+    width: 100% !important;
+    background: #F7F4F0 !important;
+    order: unset !important;
+  }
+}
+
+
+
+/* ============ ITER 66: 4 fixes finales ============ */
+
+@media (max-width: 900px){
+
+  /* ==== FIX 1: HERO MUJER - degradado no tapa la cara ==== */
+  html body .hero-slide .hero-editorial-img::after{
+    display: none !important;   /* eliminar overlay pseudo-element */
+  }
+  html body .hero-slide .hero-editorial-text{
+    background: transparent !important;
+    padding: 40px 24px !important;
+    align-items: flex-end !important;   /* texto abajo */
+    justify-content: flex-start !important;
+  }
+  html body .hero-slide .hero-inner{
+    background: rgba(247, 244, 240, 0.75) !important;
+    padding: 20px 22px 22px !important;
+    border-radius: 8px !important;
+    backdrop-filter: blur(3px) !important;
+    -webkit-backdrop-filter: blur(3px) !important;
+    max-width: 92% !important;
+  }
+  html body .hero-slide .hero-headline{
+    font-size: clamp(42px, 12vw, 60px) !important;
+    text-shadow: none !important;
+  }
+  html body .hero-slide .hero-aveces,
+  html body .hero-slide .hero-pide{
+    text-shadow: none !important;
+  }
+  /* Ajustar object-position para que la cara no quede detrás del texto */
+  html body .hero-slide .hero-editorial-img img{
+    object-position: center 15% !important;   /* enfoque en la cara arriba */
+  }
+
+  /* ==== FIX 2: SLIDE COCINA - imagen visible + botones bien ==== */
+  html body .hero-slide.hero-slide-full{
+    display: flex !important;
+    flex-direction: column !important;
+    background: #F7F4F0 !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding: 0 !important;
+    position: absolute !important;
+    inset: 0 !important;
+  }
+  html body .hero-slide.hero-slide-full .hero-slide-bg-img{
+    position: relative !important;
+    flex: 0 0 auto !important;
+    display: block !important;
+    width: 100% !important;
+    height: 45vh !important;
+    min-height: 300px !important;
+    max-height: 420px !important;
+    background: none !important;
+    background-image: none !important;
+    overflow: hidden !important;
+    order: 1 !important;
+  }
+  html body .hero-slide.hero-slide-full .hero-slide-bg-img img{
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center 50% !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  html body .hero-slide.hero-slide-full .hero-panel-wrapper{
+    position: relative !important;
+    flex: 1 1 auto !important;
+    padding: 20px 16px 30px !important;
+    width: 100% !important;
+    background: #F7F4F0 !important;
+    order: 2 !important;
+  }
+  /* Botones grandes bien visibles */
+  html body .hero-slide.hero-slide-full .hero-btns-row{
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    margin-top: 20px !important;
+    padding: 0 !important;
+  }
+  html body .hero-slide.hero-slide-full .btn-hero-primary,
+  html body .hero-slide.hero-slide-full .btn-hero-secondary,
+  html body .hero-slide.hero-slide-full .btn-below-panel{
+    display: block !important;
+    width: 100% !important;
+    padding: 16px 20px !important;
+    font-size: 14px !important;
+    min-height: 52px !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    line-height: 1.2 !important;
+    letter-spacing: 0.5px !important;
+    border-radius: 4px !important;
+    font-weight: 600 !important;
+  }
+  html body .hero-slide.hero-slide-full .btn-hero-primary{
+    background: #EB5C2E !important;
+    color: #fff !important;
+    border: none !important;
+    box-shadow: 0 2px 12px rgba(235,92,46,0.25) !important;
+  }
+  html body .hero-slide.hero-slide-full .btn-hero-secondary,
+  html body .hero-slide.hero-slide-full .btn-below-panel{
+    background: transparent !important;
+    color: #5A6E6D !important;
+    border: 2px solid #7F9795 !important;
+    text-decoration: none !important;
+  }
+  html body .hero-slide.hero-slide-full .hero-slide-cta{
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  /* ==== FIX 3: FRASES DESTACADAS - full width real ==== */
+  html body .brand-observation-image{
+    padding: 0 !important;
+    margin: 24px 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  html body .brand-observation-image img{
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  /* Forzar que sección padre no restrinja */
+  html body section:has(.brand-observation-image){
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  html body section .container:has(.brand-observation-image){
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    max-width: 100% !important;
+  }
+
+  /* ==== FIX 4: TABLA COMPOSICIÓN NUTRICIONAL - layout cards claro y legible ==== */
+  html body .prod-nutrition-table{
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 20px 0 !important;
+    border: none !important;
+    border-collapse: collapse !important;
+    overflow: visible !important;
+    white-space: normal !important;
+  }
+  html body .prod-nutrition-table thead{display: none !important;}
+  html body .prod-nutrition-table tbody{
+    display: block !important;
+    width: 100% !important;
+  }
+  html body .prod-nutrition-table tbody tr{
+    display: block !important;
+    width: 100% !important;
+    padding: 14px 16px !important;
+    background: #fff !important;
+    border: 1px solid rgba(127,151,149,0.20) !important;
+    border-radius: 6px !important;
+    margin-bottom: 8px !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04) !important;
+  }
+  html body .prod-nutrition-table tr.prod-nt-spacer{
+    display: block !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 4px 0 !important;
+    box-shadow: none !important;
+    height: 6px !important;
+  }
+  html body .prod-nutrition-table tr.prod-nt-spacer td{display: none !important;}
+  
+  /* Fila padre (con strong): fondo teal suave */
+  html body .prod-nutrition-table tbody tr:has(strong){
+    background: rgba(127, 151, 149, 0.08) !important;
+    border-left: 3px solid #7F9795 !important;
+    padding: 14px 14px 14px 16px !important;
+  }
+  /* Fila hija (sub-ingrediente): fondo blanco puro, indentado */
+  html body .prod-nutrition-table tbody tr:has(td.prod-nt-sub){
+    background: #fafafa !important;
+    padding: 10px 14px 10px 30px !important;
+    margin-left: 12px !important;
+    margin-bottom: 4px !important;
+    border-left: 2px solid #DCE9E1 !important;
+    border-radius: 0 4px 4px 0 !important;
+    box-shadow: none !important;
+    position: relative !important;
+  }
+  html body .prod-nutrition-table tbody tr:has(td.prod-nt-sub)::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 12px;
+    height: 1px;
+    background: rgba(127, 151, 149, 0.5);
+    transform: translateY(-50%);
+    margin-left: -12px;
+  }
+  
+  /* Celdas: sin padding original */
+  html body .prod-nutrition-table tbody tr td{
+    display: block !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    text-align: left !important;
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    white-space: normal !important;
+  }
+  
+  /* 1º td: nombre ingrediente (ancho completo, primera línea) */
+  html body .prod-nutrition-table tbody tr td:nth-child(1){
+    display: block !important;
+    padding: 0 0 6px 0 !important;
+    font-weight: 600 !important;
+    color: #4F4E50 !important;
+    font-size: 14px !important;
+    line-height: 1.3 !important;
+  }
+  html body .prod-nutrition-table tbody tr td:nth-child(1) strong{
+    color: #4F4E50 !important;
+    font-weight: 700 !important;
+  }
+  html body .prod-nutrition-table tbody tr td.prod-nt-sub{
+    font-weight: 400 !important;
+    color: rgba(79,78,80,0.85) !important;
+    font-size: 13px !important;
+    padding: 0 0 4px 0 !important;
+  }
+  html body .prod-nutrition-table tbody tr td.prod-nt-sub::before{
+    display: none !important;   /* elimino el guion inline anterior */
+  }
+  
+  /* 2º td (cantidad) + 3º td (%VRN): en la MISMA línea horizontal, con labels */
+  html body .prod-nutrition-table tbody tr td:nth-child(2),
+  html body .prod-nutrition-table tbody tr td:nth-child(3){
+    display: inline-block !important;
+    width: auto !important;
+    padding: 4px 0 0 0 !important;
+    font-size: 13px !important;
+    color: #4F4E50 !important;
+    font-weight: 600 !important;
+    vertical-align: baseline !important;
+  }
+  html body .prod-nutrition-table tbody tr td:nth-child(2)::before{
+    content: 'Cantidad ' !important;
+    display: inline !important;
+    font-family: 'Mona Sans', sans-serif !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    color: #7F9795 !important;
+    letter-spacing: 1.5px !important;
+    text-transform: uppercase !important;
+    margin-right: 6px !important;
+  }
+  html body .prod-nutrition-table tbody tr td:nth-child(3){
+    margin-left: 16px !important;
+    padding-left: 14px !important;
+    border-left: 1px solid rgba(127,151,149,0.30) !important;
+  }
+  html body .prod-nutrition-table tbody tr td:nth-child(3)::before{
+    content: '% VRN ' !important;
+    display: inline !important;
+    font-family: 'Mona Sans', sans-serif !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    color: #7F9795 !important;
+    letter-spacing: 1.5px !important;
+    text-transform: uppercase !important;
+    margin-right: 6px !important;
+  }
+}
+
+
+
+/* ============ ITER 67: dots abajo, botones colores, frases más grandes, imagen mesa ============ */
+
+@media (max-width: 900px){
+  
+  /* ==== DOTS del carrusel HERO ABAJO ==== */
+  html body .hero-carousel .hero-carousel-dots{
+    position: absolute !important;
+    bottom: 20px !important;
+    top: auto !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 15 !important;
+    display: flex !important;
+    gap: 8px !important;
+  }
+  html body .hero-carousel-prev,
+  html body .hero-carousel-next{
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+  }
+
+  /* ==== BOTONES HERO: forzar colores originales (naranja el CTA, teal el secundario) ==== */
+  html body .hero-slide-full a.btn-hero-secondary,
+  html body .hero-slide-full a.btn-below-panel{
+    background: transparent !important;
+    background-color: transparent !important;
+    color: #5A6E6D !important;
+    border: 2px solid #7F9795 !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+  }
+  html body .hero-slide-full button.btn-hero-primary,
+  html body .hero-slide-full .btn-hero-primary{
+    background: #EB5C2E !important;
+    background-color: #EB5C2E !important;
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: 0 3px 14px rgba(235,92,46,0.3) !important;
+    font-weight: 600 !important;
+  }
+
+  /* ==== IMAGEN MESA COCINA visible - más específico ==== */
+  html body section.hero .hero-carousel .hero-slide.hero-slide-full .hero-slide-bg-img,
+  html body .hero-slide-full > .hero-slide-bg-img{
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    height: 45vh !important;
+    min-height: 300px !important;
+    max-height: 420px !important;
+    background: transparent !important;
+    background-image: none !important;
+    overflow: hidden !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    flex-shrink: 0 !important;
+  }
+  html body .hero-slide-full .hero-slide-bg-img > img{
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center 40% !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    max-width: none !important;
+  }
+
+  /* ==== FRASES DESTACADAS - GRANDES, 100% ancho REAL ==== */
+  /* Aplicar full width forzando salir del container */
+  html body .brand-observation-image{
+    position: relative !important;
+    left: 50% !important;
+    right: 50% !important;
+    margin-left: -50vw !important;
+    margin-right: -50vw !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+  html body .brand-observation-image img{
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: auto !important;
+    display: block !important;
+    margin: 0 !important;
+    min-width: 100vw !important;
+  }
+
+  /* ==== TABLA COMPOSICIÓN - refinada: ingredientes individuales más pequeños ==== */
+  /* Los ingredientes sin sub-ingredientes (granada, uva, arroz) - card más compacta */
+  html body .prod-nutrition-table tbody tr{
+    padding: 12px 14px !important;
+    margin-bottom: 6px !important;
+  }
+  html body .prod-nutrition-table tbody tr td:nth-child(1){
+    font-size: 13.5px !important;
+    font-weight: 500 !important;
+  }
+  html body .prod-nutrition-table tbody tr:has(strong) td:nth-child(1){
+    font-size: 14.5px !important;
+    font-weight: 600 !important;
+    color: #4F4E50 !important;
+  }
+  html body .prod-nutrition-table tbody tr:has(strong) td:nth-child(1) strong{
+    font-weight: 700 !important;
+  }
+  /* Sub-ingredientes más compactos */
+  html body .prod-nutrition-table tbody tr:has(td.prod-nt-sub){
+    padding: 8px 14px 8px 24px !important;
+    margin-left: 20px !important;
+    margin-bottom: 3px !important;
+  }
+  html body .prod-nutrition-table tbody tr td.prod-nt-sub{
+    font-size: 12.5px !important;
+    padding: 0 0 3px 0 !important;
+  }
+  html body .prod-nutrition-table tbody tr:has(td.prod-nt-sub) td:nth-child(2),
+  html body .prod-nutrition-table tbody tr:has(td.prod-nt-sub) td:nth-child(3){
+    font-size: 12px !important;
+    padding-top: 2px !important;
+  }
+  /* Espacio entre secciones (padre → siguiente ingrediente independiente) */
+  html body .prod-nutrition-table tbody tr + tr:has(strong){
+    margin-top: 10px !important;
+  }
+}
+
+
+
+/* ============ ITER 68: colores botones correctos + cierre X + frases + tabla ============ */
+
+@media (max-width: 900px){
+  
+  /* ==== BOTONES HERO - COLORES ORIGINALES DESKTOP ==== */
+  /* btn-hero-primary (Avísame) → OSCURO CARBÓN con sombra */
+  html body button.btn-hero-primary,
+  html body .hero-slide-full .btn-hero-primary,
+  html body .hero-slide-full button.btn-hero-primary{
+    background: #141414 !important;
+    background-color: #141414 !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 30px !important;
+    padding: 16px 24px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.28) !important;
+    letter-spacing: 0.3px !important;
+    text-align: center !important;
+    width: 100% !important;
+    display: block !important;
+    min-height: 52px !important;
+    box-sizing: border-box !important;
+    cursor: pointer !important;
+  }
+  
+  /* btn-hero-secondary y btn-below-panel (Más info) → NARANJA con sombra naranja */
+  html body a.btn-hero-secondary,
+  html body a.btn-below-panel,
+  html body .hero-slide-full a.btn-hero-secondary,
+  html body .hero-slide-full a.btn-below-panel{
+    background: #ff681f !important;
+    background-color: #ff681f !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 30px !important;
+    padding: 14px 22px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 8px 20px rgba(255,104,31,0.35) !important;
+    letter-spacing: 0.3px !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    width: 100% !important;
+    display: block !important;
+    min-height: 48px !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* ==== IMAGEN MESA COCINA - forzar visibilidad ==== */
+  html body .hero-slide.hero-slide-full{
+    display: flex !important;
+    flex-direction: column !important;
+    background: #F7F4F0 !important;
+  }
+  html body .hero-slide.hero-slide-full .hero-slide-bg-img{
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    height: 42vh !important;
+    min-height: 300px !important;
+    max-height: 400px !important;
+    flex-shrink: 0 !important;
+    overflow: hidden !important;
+  }
+  html body .hero-slide.hero-slide-full .hero-slide-bg-img img{
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center 50% !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  
+  /* ==== HERO PANEL: más ancho para que quepa el texto largo ==== */
+  html body .hero-slide-full .hero-slide-panel{
+    padding: 22px 18px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  html body .hero-cualidades-v2{
+    width: 100% !important;
+  }
+  html body .hero-cualidades-v2 li{
+    display: grid !important;
+    grid-template-columns: 70px 1fr !important;
+    gap: 8px !important;
+    padding: 10px 0 !important;
+    align-items: baseline !important;
+    width: 100% !important;
+  }
+  html body .hero-cualidades-v2 .val{
+    font-size: 12.5px !important;
+    line-height: 1.4 !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
+    hyphens: auto !important;
+    -webkit-hyphens: auto !important;
+    max-width: 100% !important;
+    white-space: normal !important;
+    min-width: 0 !important;
+  }
+  
+  /* ==== FRASES DESTACADAS SUPER GRANDES ==== */
+  html body .brand-observation-image{
+    padding: 0 !important;
+    margin: 24px 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    display: block !important;
+    text-align: center !important;
+  }
+  html body .brand-observation-image img{
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    margin: 0 auto !important;
+  }
+}
+
+
+
+/* ============ ITER 69 (FINAL): OVERRIDE TOTAL ============ */
+
+@media (max-width: 900px){
+  
+  /* ==== X del menú CLICKABLE seguro ==== */
+  html body #mobileMenuPanel .mobile-menu-close,
+  html body #mobileMenuPanel a.mobile-menu-close{
+    position: absolute !important;
+    top: 12px !important;
+    right: 16px !important;
+    width: 44px !important;
+    height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: rgba(0,0,0,0.05) !important;
+    border: 1px solid rgba(0,0,0,0.15) !important;
+    border-radius: 50% !important;
+    color: #4F4E50 !important;
+    font-size: 26px !important;
+    line-height: 1 !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+    z-index: 999999 !important;
+    pointer-events: auto !important;
+    -webkit-tap-highlight-color: rgba(235,92,46,0.3) !important;
+    touch-action: manipulation !important;
+    user-select: none !important;
+  }
+  html body #mobileMenuPanel .mobile-menu-close:active{
+    background: rgba(235,92,46,0.15) !important;
+  }
+  
+  /* ==== FRASES DESTACADAS: dentro del container, 100% width simple ==== */
+  html body section .brand-observation-image,
+  html body section > .brand-observation-image,
+  html body div.container .brand-observation-image{
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    margin: 30px 0 !important;
+    padding: 0 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    transform: none !important;
+  }
+  html body section .brand-observation-image img,
+  html body .brand-observation-image img{
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    height: auto !important;
+    display: block !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    transform: none !important;
+  }
+  
+  /* ==== HERO SLIDE 2 (mesa cocina): SIN position:absolute, layout natural ==== */
+  html body section.hero .hero-carousel{
+    position: relative !important;
+    min-height: 0 !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  /* Para el carrusel funcione con solo el active visible, mantengo position:absolute
+     pero con altura suficiente y flexbox interno claro */
+  html body section.hero .hero-slide.hero-slide-full{
+    display: flex !important;
+    flex-direction: column !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background: #F7F4F0 !important;
+    padding: 0 !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  html body section.hero .hero-slide.hero-slide-full .hero-slide-bg-img{
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    height: 40vh !important;
+    min-height: 250px !important;
+    max-height: 350px !important;
+    background: transparent !important;
+    background-image: none !important;
+    overflow: hidden !important;
+    flex: 0 0 auto !important;
+    order: 0 !important;
+  }
+  html body section.hero .hero-slide.hero-slide-full .hero-slide-bg-img > img{
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center 45% !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    max-width: 100% !important;
+  }
+  html body section.hero .hero-slide.hero-slide-full .hero-panel-wrapper{
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    padding: 16px !important;
+    background: #F7F4F0 !important;
+    flex: 1 1 auto !important;
+    order: 1 !important;
+    inset: unset !important;
+    top: auto !important; left: auto !important; right: auto !important; bottom: auto !important;
+  }
+  /* Panel con transparencia leve para "dejar ver" la imagen */
+  html body section.hero .hero-slide.hero-slide-full .hero-slide-panel{
+    background: rgba(255,255,255,0.95) !important;
+    padding: 22px 18px !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important;
+    border-radius: 6px !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+}
+
+
+
+/* ============ ITER 70 (RADICAL) ============ */
+
+@media (max-width: 900px){
+
+  /* ===== HERO CAROUSEL: apilar los 2 slides verticalmente en móvil ===== */
+  html body section.hero.hero--editorial{
+    display: block !important;
+    position: relative !important;
+    min-height: 0 !important;
+    height: auto !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+  html body section.hero .hero-carousel{
+    display: block !important;
+    position: relative !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  html body section.hero .hero-carousel > .hero-slide{
+    position: relative !important;
+    top: auto !important; left: auto !important; right: auto !important; bottom: auto !important;
+    inset: unset !important;
+    display: block !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    visibility: visible !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    transform: none !important;
+    transition: none !important;
+    z-index: auto !important;
+    margin-bottom: 30px !important;
+  }
+  /* Ocultar flechas y dots del carrusel (ya no aplican) */
+  html body section.hero .hero-carousel-prev,
+  html body section.hero .hero-carousel-next,
+  html body section.hero .hero-carousel-dots{
+    display: none !important;
+  }
+
+  /* Slide 1 (mujer): imagen + texto abajo */
+  html body section.hero .hero-slide:not(.hero-slide-full) .hero-editorial-img{
+    position: relative !important;
+    inset: unset !important;
+    top: auto !important; right: auto !important; left: auto !important; bottom: auto !important;
+    width: 100% !important;
+    height: 55vh !important;
+    min-height: 380px !important;
+    max-height: 500px !important;
+    display: block !important;
+    order: 0 !important;
+  }
+  html body section.hero .hero-slide:not(.hero-slide-full) .hero-editorial-img::after{
+    display: none !important;
+  }
+  html body section.hero .hero-slide:not(.hero-slide-full) .hero-editorial-img img{
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center 20% !important;
+    display: block !important;
+  }
+  html body section.hero .hero-slide:not(.hero-slide-full) .hero-editorial-text{
+    position: relative !important;
+    inset: unset !important;
+    top: auto !important; right: auto !important; left: auto !important; bottom: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    background: #F7F4F0 !important;
+    padding: 32px 24px 40px !important;
+    display: block !important;
+    order: 1 !important;
+    margin: 0 !important;
+  }
+  html body section.hero .hero-slide:not(.hero-slide-full) .hero-inner{
+    background: transparent !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+  html body section.hero .hero-slide:not(.hero-slide-full) .hero-headline{
+    font-size: clamp(48px, 13vw, 68px) !important;
+    color: #4F4E50 !important;
+    text-shadow: none !important;
+  }
+  
+  /* Slide 2 (mesa cocina): imagen + panel apilados */
+  html body section.hero .hero-slide.hero-slide-full{
+    position: relative !important;
+    inset: unset !important;
+    display: block !important;
+    height: auto !important;
+    background: #F7F4F0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    -webkit-overflow-scrolling: unset !important;
+  }
+  html body section.hero .hero-slide.hero-slide-full .hero-slide-bg-img{
+    position: relative !important;
+    inset: unset !important;
+    display: block !important;
+    width: 100% !important;
+    height: 45vh !important;
+    min-height: 300px !important;
+    max-height: 420px !important;
+    background: transparent !important;
+    background-image: none !important;
+    overflow: hidden !important;
+  }
+  html body section.hero .hero-slide.hero-slide-full .hero-slide-bg-img img{
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center 50% !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  html body section.hero .hero-slide.hero-slide-full .hero-panel-wrapper{
+    position: relative !important;
+    inset: unset !important;
+    display: block !important;
+    width: 100% !important;
+    padding: 24px 16px 32px !important;
+    background: #F7F4F0 !important;
+  }
+
+  /* ===== X DEL MENÚ MÓVIL: MÁS GRANDE, MÁS AGRESIVO ===== */
+  html body #mobileMenuPanel a.mobile-menu-close,
+  html body #mobileMenuPanel .mobile-menu-close{
+    display: flex !important;
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
+    width: 54px !important;
+    height: 54px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: #EB5C2E !important;
+    background-color: #EB5C2E !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 50% !important;
+    font-size: 32px !important;
+    font-weight: 300 !important;
+    line-height: 1 !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+    z-index: 9999999 !important;
+    pointer-events: auto !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
+    -webkit-tap-highlight-color: rgba(255,255,255,0.4) !important;
+    touch-action: manipulation !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+  }
+  html body #mobileMenuPanel a.mobile-menu-close:active,
+  html body #mobileMenuPanel .mobile-menu-close:active{
+    background: #d94c1c !important;
+    transform: scale(0.95) !important;
+  }
+}
+
+
+
+/* ============ ITER 71: X definitivo + carrusel funcional ============ */
+
+/* Reset del .mobile-menu-close: eliminar cualquier vestigio de estilo antiguo */
+.mobile-menu-close,
+a.mobile-menu-close,
+button.mobile-menu-close{
+  all: unset;
+}
+
+/* X del menú: círculo naranja único, imposible de duplicar */
+html body #mobileMenuPanel .mobile-menu-close,
+html body #mobileMenuPanel a.mobile-menu-close{
+  display: flex !important;
+  position: absolute !important;
+  top: 14px !important;
+  right: 14px !important;
+  width: 48px !important;
+  height: 48px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #EB5C2E !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 50% !important;
+  font-size: 28px !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  z-index: 9999999 !important;
+  pointer-events: auto !important;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2) !important;
+  -webkit-tap-highlight-color: transparent !important;
+  touch-action: manipulation !important;
+  user-select: none !important;
+}
+html body #mobileMenuPanel .mobile-menu-close:active{
+  background: #C94722 !important;
+  transform: scale(0.94) !important;
+}
+/* Eliminar cualquier pseudo-elemento que pudiera crear un segundo botón */
+html body #mobileMenuPanel .mobile-menu-close::before,
+html body #mobileMenuPanel .mobile-menu-close::after{
+  display: none !important;
+  content: none !important;
+}
+
+
+@media (max-width: 900px){
+  
+  /* ===== HERO CAROUSEL FUNCIONAL EN MÓVIL (restaurado) ===== */
+  html body section.hero.hero--editorial{
+    display: block !important;
+    position: relative !important;
+    min-height: 90vh !important;
+    height: auto !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+  html body section.hero .hero-carousel{
+    display: block !important;
+    position: relative !important;
+    height: 90vh !important;
+    min-height: 640px !important;
+    max-height: 900px !important;
+    overflow: hidden !important;
+  }
+  html body section.hero .hero-carousel > .hero-slide{
+    position: absolute !important;
+    top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+    transition: opacity 0.5s ease !important;
+    transform: none !important;
+    margin: 0 !important;
+    z-index: 1 !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    background: #F7F4F0 !important;
+  }
+  html body section.hero .hero-carousel > .hero-slide.active{
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    visibility: visible !important;
+    z-index: 2 !important;
+  }
+  
+  /* Flechas y dots VISIBLES */
+  html body section.hero .hero-carousel-prev,
+  html body section.hero .hero-carousel-next{
+    display: flex !important;
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 40px !important;
+    height: 40px !important;
+    background: rgba(255,255,255,0.85) !important;
+    border: none !important;
+    border-radius: 50% !important;
+    font-size: 22px !important;
+    z-index: 20 !important;
+    cursor: pointer !important;
+  }
+  html body section.hero .hero-carousel-prev{left: 10px !important;}
+  html body section.hero .hero-carousel-next{right: 10px !important;}
+  html body section.hero .hero-carousel-dots{
+    display: flex !important;
+    position: absolute !important;
+    bottom: 20px !important;
+    top: auto !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 20 !important;
+    gap: 8px !important;
+  }
+
+  /* Slide 1 mujer: imagen fondo + texto abajo (dentro del slide) */
+  html body section.hero .hero-slide:not(.hero-slide-full) .hero-editorial-img{
+    position: relative !important;
+    inset: unset !important;
+    width: 100% !important;
+    height: 55vh !important;
+    min-height: 350px !important;
+    display: block !important;
+    flex-shrink: 0 !important;
+    order: 0 !important;
+  }
+  html body section.hero .hero-slide:not(.hero-slide-full) .hero-editorial-img::after{display: none !important;}
+  html body section.hero .hero-slide:not(.hero-slide-full) .hero-editorial-img img{
+    width: 100% !important; height: 100% !important;
+    object-fit: cover !important;
+    object-position: center 20% !important;
+    display: block !important;
+  }
+  html body section.hero .hero-slide:not(.hero-slide-full) .hero-editorial-text{
+    position: relative !important;
+    inset: unset !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    background: #F7F4F0 !important;
+    padding: 24px 20px 40px !important;
+    display: block !important;
+    flex: 1 1 auto !important;
+    order: 1 !important;
+    margin: 0 !important;
+  }
+  html body section.hero .hero-slide:not(.hero-slide-full) .hero-inner{
+    background: transparent !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+  /* Slide 2 mesa cocina: imagen arriba + panel debajo (dentro del slide) */
+  html body section.hero .hero-slide.hero-slide-full .hero-slide-bg-img{
+    position: relative !important;
+    inset: unset !important;
+    width: 100% !important;
+    height: 45vh !important;
+    min-height: 300px !important;
+    flex-shrink: 0 !important;
+    order: 0 !important;
+    display: block !important;
+    background: transparent !important;
+    overflow: hidden !important;
+  }
+  html body section.hero .hero-slide.hero-slide-full .hero-slide-bg-img img{
+    display: block !important;
+    width: 100% !important; height: 100% !important;
+    object-fit: cover !important;
+    object-position: center 50% !important;
+  }
+  html body section.hero .hero-slide.hero-slide-full .hero-panel-wrapper{
+    position: relative !important;
+    inset: unset !important;
+    width: 100% !important;
+    padding: 16px !important;
+    background: #F7F4F0 !important;
+    order: 1 !important;
+    flex: 1 1 auto !important;
+    display: block !important;
+  }
+}
+
+
+
+/* ============ ITER 72 (FINAL) ============ */
+
+@media (max-width: 900px){
+
+  /* ===== HERO MUJER: texto SOBRE la imagen con panel blur (como iter 65) ===== */
+  html body section.hero.hero--editorial{
+    display: block !important;
+    position: relative !important;
+    min-height: 100vh !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+  html body section.hero .hero-carousel{
+    position: relative !important;
+    height: 100vh !important;
+    min-height: 640px !important;
+    display: block !important;
+    overflow: hidden !important;
+  }
+  html body section.hero .hero-slide{
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+    transition: opacity 0.5s ease !important;
+    z-index: 1 !important;
+  }
+  html body section.hero .hero-slide.active{
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    visibility: visible !important;
+    z-index: 2 !important;
+  }
+  
+  /* Slide 1 mujer: imagen fondo + texto encima con panel translúcido abajo */
+  html body section.hero .hero-slide:not(.hero-slide-full) .hero-editorial-img{
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 1 !important;
+    overflow: hidden !important;
+  }
+  html body section.hero .hero-slide:not(.hero-slide-full) .hero-editorial-img::after{display: none !important;}
+  html body section.hero .hero-slide:not(.hero-slide-full) .hero-editorial-img img{
+    width: 100% !important; height: 100% !important;
+    object-fit: cover !important;
+    object-position: center 15% !important;
+    display: block !important;
+  }
+  html body section.hero .hero-slide:not(.hero-slide-full) .hero-editorial-text{
+    position: absolute !important;
+    top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+    inset: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 40px 24px !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    background: transparent !important;
+    z-index: 3 !important;
+  }
+  html body section.hero .hero-slide:not(.hero-slide-full) .hero-inner{
+    background: rgba(247, 244, 240, 0.75) !important;
+    padding: 22px 24px 24px !important;
+    border-radius: 8px !important;
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+    max-width: 92% !important;
+    margin: 0 auto !important;
+  }
+  html body section.hero .hero-slide:not(.hero-slide-full) .hero-headline{
+    font-size: clamp(46px, 13vw, 66px) !important;
+    color: #4F4E50 !important;
+    text-shadow: none !important;
+    line-height: 0.95 !important;
+  }
+  
+  /* Slide 2 se deja como está (sin más ajustes) */
+
+  /* ===== DOTS abajo, flechas centro ===== */
+  html body section.hero .hero-carousel-dots{
+    position: absolute !important;
+    bottom: 20px !important;
+    top: auto !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 15 !important;
+    display: flex !important;
+  }
+  html body section.hero .hero-carousel-prev,
+  html body section.hero .hero-carousel-next{
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 15 !important;
+  }
+}
+
+/* ===== MENÚ MÓVIL: cualquier click en el panel (fuera de un link) cierra el menú ===== */
+/* Esto asegura que la X funcione aunque el click no capture bien */
+html body #mobileMenuPanel{
+  cursor: pointer;
+}
+html body #mobileMenuPanel .mobile-menu-nav,
+html body #mobileMenuPanel .mobile-menu-nav a{
+  cursor: pointer;
+}
+
+
+
+/* ============ ITER 73: X NARANJA definitivo ============ */
+
+/* Quitar el all: unset que rompía todo */
+.mobile-menu-close,
+a.mobile-menu-close,
+button.mobile-menu-close{
+  all: revert;
+}
+
+/* Estilo forzado del X - círculo naranja grande, único */
+html body #mobileMenuPanel a.mobile-menu-close,
+html body #mobileMenuPanel .mobile-menu-close,
+#mobileMenuPanel a.mobile-menu-close,
+#mobileMenuPanel .mobile-menu-close{
+  display: flex !important;
+  position: absolute !important;
+  top: 14px !important;
+  right: 14px !important;
+  width: 48px !important;
+  height: 48px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #EB5C2E !important;
+  background-color: #EB5C2E !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 50% !important;
+  font-size: 28px !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  z-index: 9999999 !important;
+  pointer-events: auto !important;
+  box-shadow: 0 4px 12px rgba(235,92,46,0.35) !important;
+  -webkit-tap-highlight-color: transparent !important;
+  touch-action: manipulation !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  outline: none !important;
+}
+html body #mobileMenuPanel .mobile-menu-close:hover,
+html body #mobileMenuPanel .mobile-menu-close:active{
+  background: #C94722 !important;
+  background-color: #C94722 !important;
+  transform: scale(0.95) !important;
+}
+
+
+
+/* ============ ITER 74: TABLA COMPOSICIÓN - versión limpia ============ */
+
+@media (max-width: 900px){
+  
+  html body .prod-nutrition-table{
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 20px 0 !important;
+    border: 1px solid rgba(127, 151, 149, 0.20) !important;
+    border-radius: 6px !important;
+    background: #fff !important;
+    overflow: hidden !important;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.03) !important;
+  }
+  html body .prod-nutrition-table thead{display: none !important;}
+  html body .prod-nutrition-table tbody{
+    display: block !important;
+    width: 100% !important;
+  }
+  
+  /* Todas las filas: reset base */
+  html body .prod-nutrition-table tbody tr{
+    display: block !important;
+    width: 100% !important;
+    padding: 12px 16px !important;
+    background: #fff !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(127, 151, 149, 0.12) !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+  }
+  html body .prod-nutrition-table tbody tr:last-child{border-bottom: none !important;}
+  
+  /* Spacers = separación entre grupos */
+  html body .prod-nutrition-table tr.prod-nt-spacer{
+    display: block !important;
+    height: 6px !important;
+    background: rgba(127, 151, 149, 0.08) !important;
+    padding: 0 !important;
+    border: none !important;
+    margin: 0 !important;
+  }
+  html body .prod-nutrition-table tr.prod-nt-spacer td{display: none !important;}
+  
+  /* Fila padre (con <strong>): fondo teal MUY tenue + borde izquierdo teal */
+  html body .prod-nutrition-table tbody tr:has(strong){
+    background: rgba(127, 151, 149, 0.05) !important;
+    border-left: 3px solid #7F9795 !important;
+    padding-left: 14px !important;
+  }
+  
+  /* Fila hija (sub-ingrediente): indentada con guion visual */
+  html body .prod-nutrition-table tbody tr:has(td.prod-nt-sub){
+    background: #ffffff !important;
+    padding-left: 36px !important;
+    border-left: none !important;
+  }
+  html body .prod-nutrition-table tbody tr:has(td.prod-nt-sub)::before{
+    content: '' !important;
+    position: absolute !important;
+    left: 16px !important;
+    top: 22px !important;
+    width: 10px !important;
+    height: 1px !important;
+    background: rgba(127, 151, 149, 0.45) !important;
+  }
+  
+  /* Celdas: bloque, sin borde */
+  html body .prod-nutrition-table tbody tr td{
+    display: block !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    text-align: left !important;
+    line-height: 1.4 !important;
+    white-space: normal !important;
+    width: auto !important;
+  }
+  
+  /* Nombre del ingrediente (1º td) */
+  html body .prod-nutrition-table tbody tr td:nth-child(1){
+    display: block !important;
+    padding: 0 0 4px 0 !important;
+    font-family: 'Mona Sans', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: #4F4E50 !important;
+    line-height: 1.3 !important;
+  }
+  html body .prod-nutrition-table tbody tr:has(strong) td:nth-child(1){
+    font-size: 14.5px !important;
+    font-weight: 600 !important;
+  }
+  html body .prod-nutrition-table tbody tr:has(strong) td:nth-child(1) strong{
+    font-weight: 700 !important;
+    color: #4F4E50 !important;
+  }
+  html body .prod-nutrition-table tbody tr td.prod-nt-sub{
+    font-size: 13px !important;
+    color: rgba(79,78,80,0.85) !important;
+    font-weight: 400 !important;
+  }
+  html body .prod-nutrition-table tbody tr td.prod-nt-sub::before{
+    display: none !important;
+  }
+  
+  /* Cantidad + %VRN en misma línea, con etiquetas */
+  html body .prod-nutrition-table tbody tr td:nth-child(2),
+  html body .prod-nutrition-table tbody tr td:nth-child(3){
+    display: inline-block !important;
+    vertical-align: baseline !important;
+    padding: 4px 0 0 0 !important;
+    font-size: 13px !important;
+    color: #4F4E50 !important;
+    font-weight: 600 !important;
+    width: auto !important;
+  }
+  html body .prod-nutrition-table tbody tr td:nth-child(2)::before{
+    content: 'Cantidad ' !important;
+    display: inline !important;
+    font-family: 'Mona Sans', sans-serif !important;
+    font-size: 9.5px !important;
+    font-weight: 700 !important;
+    color: #7F9795 !important;
+    letter-spacing: 1.3px !important;
+    text-transform: uppercase !important;
+    margin-right: 5px !important;
+  }
+  html body .prod-nutrition-table tbody tr td:nth-child(3){
+    margin-left: 12px !important;
+    padding-left: 12px !important;
+    border-left: 1px solid rgba(127,151,149,0.25) !important;
+  }
+  html body .prod-nutrition-table tbody tr td:nth-child(3)::before{
+    content: '% VRN ' !important;
+    display: inline !important;
+    font-family: 'Mona Sans', sans-serif !important;
+    font-size: 9.5px !important;
+    font-weight: 700 !important;
+    color: #7F9795 !important;
+    letter-spacing: 1.3px !important;
+    text-transform: uppercase !important;
+    margin-right: 5px !important;
+  }
+  
+  /* Sub-ingredientes: cantidad y % en el mismo tamaño más pequeño */
+  html body .prod-nutrition-table tbody tr:has(td.prod-nt-sub) td:nth-child(2),
+  html body .prod-nutrition-table tbody tr:has(td.prod-nt-sub) td:nth-child(3){
+    font-size: 12px !important;
+    padding-top: 2px !important;
+  }
+  html body .prod-nutrition-table tbody tr:has(td.prod-nt-sub) td:nth-child(2)::before,
+  html body .prod-nutrition-table tbody tr:has(td.prod-nt-sub) td:nth-child(3)::before{
+    font-size: 9px !important;
+  }
+}
+
 </style>
 
+<!-- HAMBURGER MÓVIL FIJO -->
+<button type="button" id="mobileHamburger" class="mobile-hamburger" onclick="console.log('[BeNudea] Hamburger clicked!');openMobileMenu()" aria-label="Abrir menú">
+  <span></span><span></span><span></span>
+</button>
 <nav>
   <div class="nav-top">
     <div class="nav-top-left"></div>
@@ -6169,9 +8221,7 @@ html, body{overflow-x: hidden !important;}
       <a href="#inicio" style="display:flex;align-items:center"><img src="logos/logo_nombre_descriptivo.svg" alt="BeNudea Nutricosmetics" style="height:80px;width:auto"></a>
     </div>
     <div class="nav-top-right">
-      <button type="button" class="nav-hamburger" onclick="var n=document.querySelector('nav .nav-bar'),b=this;if(n){var o=n.classList.toggle('open');b.classList.toggle('open',o);b.setAttribute('aria-expanded',o?'true':'false');document.body.style.overflow=o?'hidden':'';}" aria-label="Menú" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+      
     </div>
   </div>
   <div class="nav-bar">
@@ -6204,6 +8254,21 @@ html, body{overflow-x: hidden !important;}
     <a href="#faqs">FAQs</a>
   </div>
 </nav>
+<!-- MENÚ MÓVIL INDEPENDIENTE -->
+<div id="mobileMenuOverlay" class="mobile-menu-overlay" onclick="closeMobileMenu()"></div>
+<div id="mobileMenuPanel" class="mobile-menu-panel">
+  <div class="mobile-close-btn" onclick="closeMobileMenu()" style="position:absolute;top:14px;right:14px;width:48px;height:48px;background:#EB5C2E;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:400;line-height:1;cursor:pointer;z-index:9999999;box-shadow:0 4px 12px rgba(235,92,46,0.4);user-select:none;-webkit-tap-highlight-color:transparent;pointer-events:auto;" role="button" aria-label="Cerrar menú">&times;</div>
+  <nav class="mobile-menu-nav">
+    <a href="#piel" onclick="closeMobileMenu()">La piel</a>
+    <a href="#porque" onclick="closeMobileMenu()">¿Por qué BeNudea?</a>
+    <a href="#metodo" onclick="closeMobileMenu()">Nuestro método</a>
+    <a href="#producto" onclick="closeMobileMenu()">Be-C Complex</a>
+    <a href="#nosotros" onclick="closeMobileMenu()">Sobre nosotros</a>
+    <a href="guia-etiquetas-suplementos.html">Blog</a>
+    <a href="#faqs" onclick="closeMobileMenu()">FAQs</a>
+    <a href="#" onclick="event.preventDefault();openModalId('modalContacto');closeMobileMenu();">Contacto</a>
+  </nav>
+</div>
 
 <section class="hero hero--editorial" id="inicio">
   <div class="hero-carousel">
@@ -6481,7 +8546,7 @@ html, body{overflow-x: hidden !important;}
 
       <!-- Pilar 4: Formulación limpia (placeholder) + CTA prohibido lab -->
       <article class="metodo-tile">
-        <div class="metodo-tile-img"><img src="Excipientes con propósito_2.png" alt="Excipientes con propósito" loading="lazy"></div>
+        <div class="metodo-tile-img"><img src="Excipientes con propósito_3.png" alt="Excipientes con propósito" loading="lazy"></div>
         <div class="metodo-tile-content">
           <span class="metodo-tile-tag">Formulación limpia</span>
           <h3 class="metodo-tile-title">Excipientes con propósito</h3>
@@ -6522,7 +8587,7 @@ html, body{overflow-x: hidden !important;}
 
       <!-- Bloque izquierdo: carrusel imagen grande + thumbnails -->
       <div class="prod-carousel-v2">
-        <div class="prod-carousel-main" id="prodZoomContainer" onclick="prodZoomToggleClick(event)" onmousemove="prodZoomMove(event)">
+        <div class="prod-carousel-main" id="prodZoomContainer" onclick="prodImageOpenFullscreen(event)" onmousemove="prodZoomMove(event)">
           <img id="prodMainImg" src="Amazon - imágenes listing_v03/1.png" alt="Be-C Complex — Vista principal" loading="lazy">
           <div id="prodZoomLens"></div>
         </div>
@@ -7798,6 +9863,138 @@ document.addEventListener('click', function(e){
     if (btn) { btn.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }
   }
 });
+</script>
+
+<!-- Modal imagen fullscreen para móvil -->
+<div id="imgFullscreenModal" class="img-fullscreen-modal" onclick="prodImageCloseFullscreen()">
+  <button class="img-fullscreen-close" onclick="event.stopPropagation();prodImageCloseFullscreen()" aria-label="Cerrar">&times;</button>
+  <div class="img-fullscreen-content" onclick="event.stopPropagation()">
+    <img id="imgFullscreenImg" src="" alt="">
+  </div>
+  <div class="img-fullscreen-hint">Pellizca para hacer zoom · Arrastra para moverte · Toca fuera para cerrar</div>
+</div>
+
+<script>
+// ============ MENÚ MÓVIL + FULLSCREEN IMAGEN (BeNudea) ============
+function openMobileMenu(){
+  console.log('[BeNudea] openMobileMenu llamado');
+  var overlay = document.getElementById('mobileMenuOverlay');
+  var panel = document.getElementById('mobileMenuPanel');
+  var btn = document.getElementById('mobileHamburger');
+  if (!overlay || !panel){ 
+    console.warn('[BeNudea] No se encontraron overlay/panel del menu movil');
+    return; 
+  }
+  overlay.classList.add('open');
+  panel.classList.add('open');
+  if (btn) btn.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  console.log('[BeNudea] Menu abierto');
+}
+function closeMobileMenu(){
+  var overlay = document.getElementById('mobileMenuOverlay');
+  var panel = document.getElementById('mobileMenuPanel');
+  var btn = document.getElementById('mobileHamburger');
+  if (overlay) overlay.classList.remove('open');
+  if (panel) panel.classList.remove('open');
+  if (btn) btn.classList.remove('active');
+  document.body.style.overflow = '';
+}
+window.openMobileMenu = openMobileMenu;
+window.closeMobileMenu = closeMobileMenu;
+
+// Fullscreen imagen producto (mobile)
+function prodImageOpenFullscreen(e){
+  if (window.innerWidth >= 900){
+    if (typeof prodZoomToggleClick === 'function') prodZoomToggleClick(e);
+    return;
+  }
+  var img = document.getElementById('prodMainImg');
+  var modalImg = document.getElementById('imgFullscreenImg');
+  var modal = document.getElementById('imgFullscreenModal');
+  if (img && modalImg && modal){
+    modalImg.src = img.src;
+    modalImg.alt = img.alt;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+}
+function prodImageCloseFullscreen(){
+  var modal = document.getElementById('imgFullscreenModal');
+  if (modal) modal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+window.prodImageOpenFullscreen = prodImageOpenFullscreen;
+window.prodImageCloseFullscreen = prodImageCloseFullscreen;
+
+// Escape cierra menú y fullscreen
+document.addEventListener('keydown', function(e){
+  if (e.key === 'Escape'){
+    closeMobileMenu();
+    prodImageCloseFullscreen();
+  }
+});
+
+console.log('[BeNudea] Scripts de menu movil y fullscreen cargados');
+</script>
+
+<script>
+// Reforzar cierre X del menú móvil con listener directo
+document.addEventListener('DOMContentLoaded', function(){
+  var closeBtn = document.querySelector('.mobile-menu-close');
+  if (closeBtn){
+    closeBtn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      if (typeof closeMobileMenu === 'function') closeMobileMenu();
+    });
+    closeBtn.addEventListener('touchend', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      if (typeof closeMobileMenu === 'function') closeMobileMenu();
+    });
+  }
+});
+</script>
+
+<script>
+// Capture-mode listener para el X del menú móvil (garantiza que dispara antes que cualquier otro handler)
+document.addEventListener('click', function(e){
+  var t = e.target;
+  console.log('[BeNudea DEBUG] Click en:', t.tagName, t.className, t.id);
+  if (t && (t.classList && t.classList.contains('mobile-menu-close') || 
+            t.closest && t.closest('.mobile-menu-close'))){
+    console.log('[BeNudea] X detectada, cerrando menú');
+    e.preventDefault();
+    e.stopPropagation();
+    if (typeof closeMobileMenu === 'function') closeMobileMenu();
+    return false;
+  }
+}, true);  // <-- true = capture phase
+document.addEventListener('touchstart', function(e){
+  var t = e.target;
+  if (t && (t.classList && t.classList.contains('mobile-menu-close') || 
+            t.closest && t.closest('.mobile-menu-close'))){
+    if (typeof closeMobileMenu === 'function') closeMobileMenu();
+  }
+}, {capture: true, passive: true});
+console.log('[BeNudea] Capture listener X del menu instalado');
+</script>
+
+<script>
+// Fallback definitivo: click en el panel del menú (fuera de links) cierra el menú
+document.addEventListener('click', function(e){
+  var panel = document.getElementById('mobileMenuPanel');
+  if (!panel || !panel.classList.contains('open')) return;
+  var t = e.target;
+  // Si el click es en un link del nav, dejar navegar
+  if (t.closest && t.closest('.mobile-menu-nav a')) return;
+  // Cualquier otro click dentro del panel (incluye la X) cierra el menú
+  if (t === panel || (t.closest && t.closest('#mobileMenuPanel'))){
+    if (typeof closeMobileMenu === 'function') closeMobileMenu();
+  }
+});
+console.log('[BeNudea] Fallback: click en panel cierra menú');
 </script>
 </body>
 </html>
