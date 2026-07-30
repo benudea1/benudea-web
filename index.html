@@ -9988,21 +9988,24 @@ async function enviarAviso(){
   btn.textContent = 'Enviando...';
   btn.disabled = true;
   try {
-    // TODO: conectar endpoint backend post-deploy (Vercel Function o Formspree)
-    // Placeholder temporal: guarda en localStorage y muestra confirmación
-    var stored = JSON.parse(localStorage.getItem('benudea_avisos') || '[]');
-    stored.push({email: email, nombre: nombre, fecha: new Date().toISOString()});
-    localStorage.setItem('benudea_avisos', JSON.stringify(stored));
-
-    // Log para poder recuperarlo desde consola (F12) mientras no hay backend
-    console.log('[BeNudea Aviso registrado]', {email: email, nombre: nombre});
-
-    // Mostrar confirmación al usuario
-    document.getElementById('avisoForm').style.display='none';
-    document.getElementById('avisoOk').style.display='block';
+    const res = await fetch('/api/aviso', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email: email, nombre: nombre})
+    });
+    if (res.ok){
+      document.getElementById('avisoForm').style.display='none';
+      document.getElementById('avisoOk').style.display='block';
+    } else {
+      const data = await res.json().catch(() => ({}));
+      btn.textContent='Avísame cuando esté disponible en Amazon';
+      btn.disabled=false;
+      alert(data.error || 'Ha ocurrido un error. Por favor, inténtalo de nuevo.');
+    }
   } catch(e){
-    btn.textContent='Avísame cuando esté disponible en Amazon';btn.disabled=false;
-    alert('Error temporal. Por favor, escríbenos a info@benudea.com.');
+    btn.textContent='Avísame cuando esté disponible en Amazon';
+    btn.disabled=false;
+    alert('Error de conexión. Por favor, escríbenos a info@benudea.com.');
   }
 }
 document.addEventListener('keydown', e=>{ if(e.key==='Escape') cerrarAviso(); });
