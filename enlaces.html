@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>BeNudea · Enlaces</title>
+<meta name="description" content="Todos los enlaces de BeNudea Nutricosmetics: Amazon, web, blog, contacto y novedades.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.benudea.com/enlaces">
+
+<!-- Open Graph -->
+<meta property="og:title" content="BeNudea · Enlaces">
+<meta property="og:description" content="Nutricosmética con criterio. Todos los enlaces de BeNudea en un solo sitio.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.benudea.com/enlaces">
+<meta property="og:image" content="https://www.benudea.com/BeNudea%20-%20Be-C%20Complex-%20IMAGEN%20PRINCIPAL_transparente.png">
+
+<!-- Favicon (reutiliza el mismo isotipo) -->
+<link rel="icon" type="image/svg+xml" href="LOGOTIPOS BENUDEA_isotipo.svg">
+
+<!-- Fuentes brandbook 2026 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Mona+Sans:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --teal: #7F9795;
+  --teal-light: #DCE9E1;
+  --teal-dark: #5A6E6D;
+  --orange-brand: #EB5C2E;
+  --orange-soft: #FFB88F;
+  --orange-deep: #C94722;
+  --carbon: #4F4E50;
+  --cream: #F7F4F0;
+  --font-display: 'Syne', serif;
+  --font-body: 'Mona Sans', 'Poppins', system-ui, sans-serif;
+}
+
+*{box-sizing: border-box; margin: 0; padding: 0;}
+html, body{
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+body{
+  font-family: var(--font-body);
+  background: var(--cream);
+  color: var(--carbon);
+  padding: 40px 20px 60px;
+  line-height: 1.5;
+}
+
+.enlaces-wrapper{
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* Header */
+.el-header{
+  text-align: center;
+  margin-bottom: 40px;
+}
+.el-logo{
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 14px;
+  display: block;
+}
+.el-logo-name{
+  width: 260px;
+  max-width: 80%;
+  height: auto;
+  margin: 0 auto 18px;
+  display: block;
+}
+.el-tag{
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--orange-brand);
+  letter-spacing: 1.5px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.el-bio{
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--carbon);
+  opacity: 0.85;
+  max-width: 380px;
+  margin: 0 auto 10px;
+  line-height: 1.55;
+}
+.el-bio-sub{
+  font-size: 13px;
+  opacity: 0.7;
+  margin-top: 8px;
+}
+
+/* Cards de enlaces */
+.el-cards{
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 32px;
+}
+.el-card{
+  display: block;
+  background: #fff;
+  border: 1px solid var(--teal-light);
+  border-radius: 14px;
+  padding: 18px 20px;
+  color: var(--carbon);
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  position: relative;
+}
+.el-card:hover, .el-card:active{
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  border-color: var(--orange-brand);
+}
+
+.el-card-title{
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--teal-dark);
+  margin-bottom: 4px;
+  letter-spacing: -0.005em;
+}
+.el-card-desc{
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--carbon);
+  opacity: 0.7;
+  line-height: 1.45;
+}
+.el-card-arrow{
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: var(--orange-brand);
+  opacity: 0.5;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.el-card:hover .el-card-arrow{
+  opacity: 1;
+  transform: translateY(-50%) translateX(4px);
+}
+
+/* Card destacada (Amazon) */
+.el-card--featured{
+  background: var(--orange-brand);
+  border: none;
+  padding: 22px 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.el-card--featured .el-card-title{
+  color: #fff;
+  font-size: 19px;
+}
+.el-card--featured .el-card-desc{
+  color: rgba(255, 255, 255, 0.9);
+  opacity: 1;
+}
+.el-card--featured .el-card-arrow{
+  color: #fff;
+  opacity: 1;
+}
+.el-card--featured:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(235, 92, 46, 0.35);
+  background: var(--orange-deep);
+}
+.el-card-img{
+  width: 68px;
+  height: 68px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+.el-card-img img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.el-card-content{
+  flex: 1;
+  min-width: 0;
+}
+
+/* Icono en cards normales (opcional) */
+.el-card-with-icon{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.el-card-icon{
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  background: var(--teal-light);
+  color: var(--teal-dark);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+.el-card-icon svg{width: 20px; height: 20px;}
+
+/* Social row */
+.el-social{
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 32px;
+}
+.el-social a{
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1.5px solid var(--teal);
+  color: var(--teal-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.el-social a:hover{
+  background: var(--orange-brand);
+  border-color: var(--orange-brand);
+  color: #fff;
+}
+.el-social svg{width: 20px; height: 20px;}
+
+/* Footer */
+.el-footer{
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--teal-light);
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--carbon);
+  opacity: 0.55;
+  letter-spacing: 0.02em;
+}
+.el-footer a{
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+}
+</style>
+</head>
+
+<body>
+
+<main class="enlaces-wrapper">
+
+  <!-- Header -->
+  <header class="el-header">
+    <img src="LOGOTIPOS BENUDEA_isotipo.svg" alt="" class="el-logo" aria-hidden="true">
+    <img src="LOGOTIPOS BENUDEA_nombre y descriptivo.svg" alt="BeNudea Nutricosmetics" class="el-logo-name">
+    <p class="el-tag">Nutricosmética con criterio</p>
+    <p class="el-bio">Nuestro primer producto: <strong>Be-C Complex</strong>. Vitamina C + zinc + cobre + antioxidantes botánicos.</p>
+    <p class="el-bio el-bio-sub">Fabricado en España en laboratorio con certificación GMP, el estándar internacional de Buenas Prácticas de Fabricación.</p>
+  </header>
+
+  <!-- Cards -->
+  <section class="el-cards">
+
+    <!-- Card destacada: Amazon -->
+    <a href="https://www.amazon.es/dp/B0H8ZFGXDQ" target="_blank" rel="noopener" class="el-card el-card--featured">
+      <div class="el-card-img">
+        <img src="BeNudea - Be-C Complex- IMAGEN PRINCIPAL_transparente.png" alt="Be-C Complex">
+      </div>
+      <div class="el-card-content">
+        <div class="el-card-title">Be-C Complex · en Amazon</div>
+        <div class="el-card-desc">Envío Prime 24-48h · comprar ahora</div>
+      </div>
+      <span class="el-card-arrow">→</span>
+    </a>
+
+    <!-- Web oficial -->
+    <a href="https://www.benudea.com" target="_blank" rel="noopener" class="el-card">
+      <div class="el-card-title">Nuestra web</div>
+      <div class="el-card-desc">La historia, la ciencia, las FAQs completas</div>
+      <span class="el-card-arrow">→</span>
+    </a>
+
+    <!-- Blog -->
+    <a href="https://www.benudea.com/guia-etiquetas-suplementos.html" target="_blank" rel="noopener" class="el-card">
+      <div class="el-card-title">Blog · Cómo leer una etiqueta de suplemento</div>
+      <div class="el-card-desc">Guía completa para elegir con criterio</div>
+      <span class="el-card-arrow">→</span>
+    </a>
+
+    <!-- Newsletter -->
+    <a href="https://www.benudea.com/#producto" target="_blank" rel="noopener" class="el-card">
+      <div class="el-card-title">Novedades BeNudea</div>
+      <div class="el-card-desc">Nuevos artículos, próximos productos, contenido con criterio</div>
+      <span class="el-card-arrow">→</span>
+    </a>
+
+    <!-- Contacto -->
+    <a href="mailto:hola@benudea.com" class="el-card">
+      <div class="el-card-title">Escríbenos</div>
+      <div class="el-card-desc">hola@benudea.com · respondemos en 48h</div>
+      <span class="el-card-arrow">→</span>
+    </a>
+
+  </section>
+
+  <!-- Social row -->
+  <div class="el-social">
+    <a href="https://www.instagram.com/benudea_nutricosmetics/" target="_blank" rel="noopener" aria-label="Instagram BeNudea">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.8"/>
+        <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/>
+        <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/>
+      </svg>
+    </a>
+    <a href="https://www.amazon.es/dp/B0H8ZFGXDQ" target="_blank" rel="noopener" aria-label="Comprar en Amazon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 8h16M4 12h16M4 16h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="el-footer">
+    &copy; 2026 <a href="https://www.benudea.com">BeNudea · Proyecto Bedecuatro SL</a>
+  </footer>
+
+</main>
+
+</body>
+</html>
