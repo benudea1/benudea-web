@@ -24,12 +24,17 @@
       ]
     }
   ],
-  "redirects": [
+  "rewrites": [
+    {
+      "source": "/enlaces",
+      "destination": "/enlaces.html"
+    },
     {
       "source": "/blog",
-      "destination": "/guia-etiquetas-suplementos.html",
-      "permanent": false
-    },
+      "destination": "/guia-etiquetas-suplementos.html"
+    }
+  ],
+  "redirects": [
     {
       "source": "/link",
       "destination": "/enlaces",
