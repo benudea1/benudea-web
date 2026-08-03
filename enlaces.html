@@ -44,7 +44,7 @@ html, body{
 }
 body{
   font-family: var(--font-body);
-  background: var(--cream);
+  background: var(--teal-light);
   color: var(--carbon);
   padding: 40px 20px 60px;
   line-height: 1.5;
@@ -106,17 +106,18 @@ body{
 .el-card{
   display: block;
   background: #fff;
-  border: 1px solid var(--teal-light);
+  border: 1px solid rgba(127, 151, 149, 0.2);
   border-radius: 14px;
   padding: 18px 20px;
   color: var(--carbon);
   text-decoration: none;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   position: relative;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 .el-card:hover, .el-card:active{
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
   border-color: var(--orange-brand);
 }
 
@@ -250,7 +251,7 @@ body{
   text-align: center;
   margin-top: 40px;
   padding-top: 20px;
-  border-top: 1px solid var(--teal-light);
+  border-top: 1px solid rgba(127, 151, 149, 0.3);
   font-family: var(--font-body);
   font-size: 11px;
   color: var(--carbon);
