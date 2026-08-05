@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog · BeNudea Nutricosmetics</title>
+<meta name="description" content="Blog BeNudea: contenido honesto y con criterio sobre nutricosmética, suplementación y cuidado de la piel desde dentro. Sin marketing barato.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.benudea.com/blog">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Blog · BeNudea Nutricosmetics">
+<meta property="og:description" content="Contenido honesto y con criterio sobre nutricosmética, suplementación y cuidado de la piel desde dentro.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.benudea.com/blog">
+<meta property="og:image" content="https://www.benudea.com/BeNudea%20-%20Be-C%20Complex-%20IMAGEN%20PRINCIPAL_transparente.png">
+
+<link rel="icon" type="image/svg+xml" href="LOGOTIPOS BENUDEA_isotipo.svg">
+
+<!-- Fuentes brandbook 2026 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Mona+Sans:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --teal: #7F9795;
+  --teal-light: #DCE9E1;
+  --teal-dark: #5A6E6D;
+  --orange-brand: #EB5C2E;
+  --orange-deep: #C94722;
+  --carbon: #4F4E50;
+  --ink: #2A2A2A;
+  --cream: #F7F4F0;
+  --paper: #FAF8F3;
+  --font-display: 'Syne', serif;
+  --font-body: 'Mona Sans', 'Poppins', system-ui, sans-serif;
+}
+
+*{box-sizing: border-box; margin: 0; padding: 0;}
+html, body{overflow-x: hidden;}
+body{
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.7;
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* NAV */
+.guide-nav{
+  position: sticky; top: 0; z-index: 100;
+  background: var(--paper);
+  border-bottom: 1px solid rgba(127,151,149,0.25);
+  padding: 18px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.guide-nav-brand img{ height: 40px; width: auto; }
+.guide-nav-back{
+  font-family: var(--font-body);
+  font-size: 12px; color: var(--teal-dark);
+  text-decoration: none;
+  letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500;
+}
+.guide-nav-back:hover{color: var(--orange-brand);}
+
+/* HERO */
+.blog-hero{
+  padding: 100px 32px 60px;
+  text-align: center;
+  max-width: 720px; margin: 0 auto;
+}
+.blog-eyebrow{
+  font-family: var(--font-body);
+  font-size: 11px; color: var(--orange-brand);
+  letter-spacing: 3px; text-transform: uppercase; font-weight: 700;
+  margin-bottom: 28px;
+}
+.blog-eyebrow::before, .blog-eyebrow::after{
+  content: '·'; margin: 0 12px; opacity: 0.5;
+}
+.blog-hero h1{
+  font-family: var(--font-display);
+  font-size: clamp(38px, 5vw, 56px); font-weight: 500;
+  color: var(--ink); line-height: 1.05; letter-spacing: -0.015em;
+  margin-bottom: 32px;
+}
+.blog-hero-sub{
+  font-family: var(--font-body);
+  font-size: 20px; color: var(--carbon);
+  line-height: 1.55; font-style: italic; max-width: 560px; margin: 0 auto;
+}
+
+/* Grid de artículos */
+.blog-list{
+  max-width: 780px;
+  margin: 40px auto 80px;
+  padding: 0 32px;
+}
+.blog-post{
+  display: block;
+  padding: 40px 0;
+  border-top: 1px solid rgba(127,151,149,0.3);
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.2s ease;
+}
+.blog-post:last-child{border-bottom: 1px solid rgba(127,151,149,0.3);}
+.blog-post:hover{opacity: 0.8;}
+.blog-post-meta{
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-family: var(--font-body);
+  font-size: 11px; color: var(--teal-dark);
+  letter-spacing: 2px; text-transform: uppercase; font-weight: 500;
+  margin-bottom: 16px;
+}
+.blog-post-num{
+  font-family: 'Syne', serif;
+  color: var(--orange-brand);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+.blog-post h2{
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 32px); font-weight: 500;
+  color: var(--ink); line-height: 1.2; letter-spacing: -0.01em;
+  margin-bottom: 12px;
+}
+.blog-post h2 em{ font-style: italic; color: var(--teal-dark); }
+.blog-post-excerpt{
+  font-family: var(--font-body);
+  font-size: 17px; color: var(--carbon);
+  line-height: 1.6;
+  margin-bottom: 16px;
+  max-width: 620px;
+}
+.blog-post-tags{
+  display: flex; gap: 8px; flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.blog-post-tags span{
+  font-family: var(--font-body);
+  font-size: 11px;
+  padding: 3px 10px;
+  background: var(--cream);
+  color: var(--teal-dark);
+  border-radius: 12px;
+  letter-spacing: 0.5px;
+}
+.blog-post-cta{
+  display: inline-block;
+  font-family: var(--font-body); font-weight: 700;
+  font-size: 12px; color: var(--orange-brand);
+  letter-spacing: 2px; text-transform: uppercase;
+  border-bottom: 1px solid var(--orange-brand);
+  padding-bottom: 2px;
+  margin-top: 8px;
+}
+.blog-post:hover .blog-post-cta{
+  color: var(--orange-deep);
+  border-bottom-color: var(--orange-deep);
+}
+
+/* Próximamente */
+.blog-comingsoon{
+  padding: 40px 0;
+  border-top: 1px solid rgba(127,151,149,0.3);
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 14px; color: var(--teal-dark);
+  font-style: italic;
+  opacity: 0.75;
+}
+.blog-comingsoon::before{
+  content: '';
+  display: block;
+  width: 20px; height: 1px;
+  background: var(--orange-brand);
+  margin: 0 auto 16px;
+}
+
+/* Footer */
+.article-footer{
+  border-top: 1px solid rgba(127,151,149,0.3);
+  padding: 40px 24px; text-align: center;
+  font-family: var(--font-body);
+  font-size: 11px; color: var(--teal-dark);
+  letter-spacing: 1px; opacity: 0.75;
+}
+.article-footer a{
+  color: var(--teal-dark); text-decoration: none;
+  margin: 0 8px; border-bottom: 1px dotted transparent;
+}
+.article-footer a:hover{border-bottom-color: var(--orange-brand); color: var(--orange-brand);}
+.article-footer p{margin-bottom: 8px;}
+
+@media (max-width: 640px){
+  .guide-nav{padding: 14px 16px;}
+  .guide-nav-brand img{height: 34px;}
+  .blog-hero{padding: 60px 20px 40px;}
+  .blog-list{padding: 0 24px; margin: 24px auto 60px;}
+  .blog-post{padding: 32px 0;}
+  .blog-post-meta{flex-direction: column; gap: 6px; align-items: flex-start;}
+}
+</style>
+</head>
+<body>
+
+<nav class="guide-nav">
+  <a href="index.html" class="guide-nav-brand" aria-label="Volver a BeNudea">
+    <img src="LOGOTIPOS BENUDEA_nombre izda e isotipo.svg" alt="BeNudea">
+  </a>
+  <a href="index.html" class="guide-nav-back">← Volver a la web</a>
+</nav>
+
+<header class="blog-hero">
+  <div class="blog-eyebrow">BeNudea · Blog</div>
+  <h1>Nutricosmética con criterio</h1>
+  <p class="blog-hero-sub">Contenido honesto sobre suplementación, cuidado de la piel desde dentro y ciencia sin marketing barato.</p>
+</header>
+
+<main class="blog-list">
+
+  <a href="cuanto-tarda-vitamina-c-hacer-efecto.html" class="blog-post">
+    <div class="blog-post-meta">
+      <span class="blog-post-num">Nº 02</span>
+      <span>5 agosto 2026 · 7 min de lectura</span>
+    </div>
+    <h2>¿Cuánto tarda la vitamina C en hacer efecto en la piel?</h2>
+    <div class="blog-post-tags">
+      <span>Vitamina C</span>
+      <span>Fisiología</span>
+      <span>Constancia</span>
+    </div>
+    <p class="blog-post-excerpt">Los tiempos reales según la ciencia, sin promesas de tres días. Una guía honesta sobre cuándo empiezan a notarse los efectos de la suplementación con vitamina C, y por qué la constancia importa más que la dosis.</p>
+    <span class="blog-post-cta">Leer artículo →</span>
+  </a>
+
+  <a href="guia-etiquetas-suplementos.html" class="blog-post">
+    <div class="blog-post-meta">
+      <span class="blog-post-num">Nº 01</span>
+      <span>27 julio 2026 · 8 min de lectura</span>
+    </div>
+    <h2>Cómo leer <em>(y entender)</em> una etiqueta de suplemento</h2>
+    <div class="blog-post-tags">
+      <span>Etiquetado</span>
+      <span>Criterio</span>
+      <span>Formulación</span>
+    </div>
+    <p class="blog-post-excerpt">Los 4 pilares que separan la calidad real del marketing de bote: formas químicas, transparencia de dosis, orden de ingredientes y aditivos técnicos. Con ejemplos aplicados y checklist final para decidir con criterio.</p>
+    <span class="blog-post-cta">Leer artículo →</span>
+  </a>
+
+  <div class="blog-comingsoon">
+    Próximamente — más artículos cada semana.
+  </div>
+
+</main>
+
+<footer class="article-footer">
+  <p>&copy; 2026 <a href="index.html">BeNudea · Proyecto Bedecuatro SL</a> · <a href="enlaces">Enlaces</a></p>
+  <p>Los complementos alimenticios no deben utilizarse como sustituto de una dieta equilibrada.</p>
+</footer>
+
+</body>
+</html>
