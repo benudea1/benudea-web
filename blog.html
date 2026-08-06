@@ -92,53 +92,70 @@ body{
   line-height: 1.55; font-style: italic; max-width: 560px; margin: 0 auto;
 }
 
-/* Grid de artículos */
+/* Listado */
 .blog-list{
-  max-width: 780px;
+  max-width: 960px;
   margin: 40px auto 80px;
   padding: 0 32px;
 }
 .blog-post{
-  display: block;
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 36px;
   padding: 40px 0;
   border-top: 1px solid rgba(127,151,149,0.3);
   text-decoration: none;
   color: inherit;
-  transition: opacity 0.2s ease;
+  align-items: center;
+  transition: opacity 0.25s ease;
 }
-.blog-post:last-child{border-bottom: 1px solid rgba(127,151,149,0.3);}
-.blog-post:hover{opacity: 0.8;}
-.blog-post-meta{
-  display: flex; justify-content: space-between; align-items: baseline;
+.blog-post:last-of-type{border-bottom: 1px solid rgba(127,151,149,0.3);}
+.blog-post:hover{opacity: 0.95;}
+
+/* Imagen principal */
+.blog-post-img{
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: var(--cream);
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.blog-post-img img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.blog-post:hover .blog-post-img img{
+  transform: scale(1.04);
+}
+
+/* Contenido */
+.blog-post-content{padding: 8px 0;}
+.blog-post-date{
   font-family: var(--font-body);
   font-size: 11px; color: var(--teal-dark);
   letter-spacing: 2px; text-transform: uppercase; font-weight: 500;
-  margin-bottom: 16px;
-}
-.blog-post-num{
-  font-family: 'Syne', serif;
-  color: var(--orange-brand);
-  font-weight: 700;
-  font-size: 12px;
-  letter-spacing: 1px;
+  margin-bottom: 14px;
 }
 .blog-post h2{
   font-family: var(--font-display);
-  font-size: clamp(24px, 3vw, 32px); font-weight: 500;
+  font-size: clamp(24px, 2.4vw, 30px); font-weight: 500;
   color: var(--ink); line-height: 1.2; letter-spacing: -0.01em;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 .blog-post h2 em{ font-style: italic; color: var(--teal-dark); }
 .blog-post-excerpt{
   font-family: var(--font-body);
-  font-size: 17px; color: var(--carbon);
-  line-height: 1.6;
-  margin-bottom: 16px;
-  max-width: 620px;
+  font-size: 16px; color: var(--carbon);
+  line-height: 1.6; margin-bottom: 18px;
 }
 .blog-post-tags{
   display: flex; gap: 8px; flex-wrap: wrap;
-  margin-bottom: 12px;
+  margin-bottom: 18px;
 }
 .blog-post-tags span{
   font-family: var(--font-body);
@@ -155,8 +172,8 @@ body{
   font-size: 12px; color: var(--orange-brand);
   letter-spacing: 2px; text-transform: uppercase;
   border-bottom: 1px solid var(--orange-brand);
-  padding-bottom: 2px;
-  margin-top: 8px;
+  padding-bottom: 3px;
+  transition: color 0.2s ease, border-color 0.2s ease;
 }
 .blog-post:hover .blog-post-cta{
   color: var(--orange-deep);
@@ -196,13 +213,19 @@ body{
 .article-footer a:hover{border-bottom-color: var(--orange-brand); color: var(--orange-brand);}
 .article-footer p{margin-bottom: 8px;}
 
+@media (max-width: 800px){
+  .blog-post{
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .blog-post-img{aspect-ratio: 16 / 10;}
+}
 @media (max-width: 640px){
   .guide-nav{padding: 14px 16px;}
   .guide-nav-brand img{height: 34px;}
   .blog-hero{padding: 60px 20px 40px;}
   .blog-list{padding: 0 24px; margin: 24px auto 60px;}
   .blog-post{padding: 32px 0;}
-  .blog-post-meta{flex-direction: column; gap: 6px; align-items: flex-start;}
 }
 </style>
 </head>
@@ -224,33 +247,37 @@ body{
 <main class="blog-list">
 
   <a href="cuanto-tarda-vitamina-c-hacer-efecto.html" class="blog-post">
-    <div class="blog-post-meta">
-      <span class="blog-post-num">Nº 02</span>
-      <span>5 agosto 2026 · 7 min de lectura</span>
+    <div class="blog-post-img">
+      <img src="blog-portada-vitamina-c.png" alt="Mujer mirando la hora frente a estantería de suplementos" loading="lazy">
     </div>
-    <h2>¿Cuánto tarda la vitamina C en hacer efecto en la piel?</h2>
-    <div class="blog-post-tags">
-      <span>Vitamina C</span>
-      <span>Fisiología</span>
-      <span>Constancia</span>
+    <div class="blog-post-content">
+      <div class="blog-post-date">5 agosto 2026 · 7 min de lectura</div>
+      <h2>¿Cuánto tarda la vitamina C en hacer efecto en la piel?</h2>
+      <p class="blog-post-excerpt">Los tiempos reales según la ciencia, sin promesas de tres días. Una guía honesta sobre cuándo empiezan a notarse los efectos de la suplementación con vitamina C, y por qué la constancia importa más que la dosis.</p>
+      <div class="blog-post-tags">
+        <span>Vitamina C</span>
+        <span>Fisiología</span>
+        <span>Constancia</span>
+      </div>
+      <span class="blog-post-cta">Leer artículo →</span>
     </div>
-    <p class="blog-post-excerpt">Los tiempos reales según la ciencia, sin promesas de tres días. Una guía honesta sobre cuándo empiezan a notarse los efectos de la suplementación con vitamina C, y por qué la constancia importa más que la dosis.</p>
-    <span class="blog-post-cta">Leer artículo →</span>
   </a>
 
   <a href="guia-etiquetas-suplementos.html" class="blog-post">
-    <div class="blog-post-meta">
-      <span class="blog-post-num">Nº 01</span>
-      <span>27 julio 2026 · 8 min de lectura</span>
+    <div class="blog-post-img">
+      <img src="blog-portada-etiqueta.jpg" alt="Botes de suplementos con lupa examinando la etiqueta" loading="lazy">
     </div>
-    <h2>Cómo leer <em>(y entender)</em> una etiqueta de suplemento</h2>
-    <div class="blog-post-tags">
-      <span>Etiquetado</span>
-      <span>Criterio</span>
-      <span>Formulación</span>
+    <div class="blog-post-content">
+      <div class="blog-post-date">27 julio 2026 · 8 min de lectura</div>
+      <h2>Cómo leer <em>(y entender)</em> una etiqueta de suplemento</h2>
+      <p class="blog-post-excerpt">Los 4 pilares que separan la calidad real del marketing de bote: formas químicas, transparencia de dosis, orden de ingredientes y aditivos técnicos. Con ejemplos aplicados y checklist final para decidir con criterio.</p>
+      <div class="blog-post-tags">
+        <span>Etiquetado</span>
+        <span>Criterio</span>
+        <span>Formulación</span>
+      </div>
+      <span class="blog-post-cta">Leer artículo →</span>
     </div>
-    <p class="blog-post-excerpt">Los 4 pilares que separan la calidad real del marketing de bote: formas químicas, transparencia de dosis, orden de ingredientes y aditivos técnicos. Con ejemplos aplicados y checklist final para decidir con criterio.</p>
-    <span class="blog-post-cta">Leer artículo →</span>
   </a>
 
   <div class="blog-comingsoon">
