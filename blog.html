@@ -71,14 +71,24 @@ body{
   text-align: center;
   max-width: 720px; margin: 0 auto;
 }
+/* Eyebrow con isotipo BeNudea (nuevo estilo 2026-08) */
 .blog-eyebrow{
-  font-family: var(--font-body);
-  font-size: 11px; color: var(--orange-brand);
-  letter-spacing: 3px; text-transform: uppercase; font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
   margin-bottom: 28px;
 }
-.blog-eyebrow::before, .blog-eyebrow::after{
-  content: '·'; margin: 0 12px; opacity: 0.5;
+.blog-eyebrow-icon{
+  width: 22px; height: 22px; display: block; flex-shrink: 0;
+}
+.blog-eyebrow-icon svg{width: 100%; height: 100%; display: block;}
+.blog-eyebrow-label{
+  font-family: var(--font-body);
+  font-size: 14px; color: var(--teal-dark);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-thickness: 1px;
 }
 .blog-hero h1{
   font-family: var(--font-display);
@@ -136,10 +146,12 @@ body{
 /* Contenido */
 .blog-post-content{padding: 8px 0;}
 .blog-post-date{
+  display: block;
+  margin-top: 14px;
   font-family: var(--font-body);
   font-size: 11px; color: var(--teal-dark);
   letter-spacing: 2px; text-transform: uppercase; font-weight: 500;
-  margin-bottom: 14px;
+  opacity: 0.75;
 }
 .blog-post h2{
   font-family: var(--font-display);
@@ -239,7 +251,15 @@ body{
 </nav>
 
 <header class="blog-hero">
-  <div class="blog-eyebrow">BeNudea · Blog</div>
+  <div class="blog-eyebrow">
+    <span class="blog-eyebrow-icon" aria-hidden="true">
+      <svg viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#7F9795" d="M529.93,694.41c0,82.97-39.16,158.38-91.15,220.15h-157.39c109.63-47.42,192.05-127.14,192.05-214.4,0-64.83-38.87-106.65-109.52-106.65-106.52,0-179.21,95.02-215.91,203.65v-169.57c29.45-56.37,73.85-98.83,127.02-132.6,46.63-29.62,95.98-57.05,135.97-95.7,23.22-22.44,44.21-50.27,48.06-83.28,5.76-77.49-53.77-123.72-120.48-124.08-65.35-.37-135.27,34.37-176.02,85.37-3.5,4.39-13.15,17.85-14.56,20.83v-132.68h352.28c14.64,34.48,22.27,71.99,22.27,110.15,0,110.41-71.75,168.86-143.38,210.61,85.89,9.44,150.75,91.59,150.75,208.2Z"/>
+        <path fill="#7F9795" d="M550.07,385.59c0-82.97,39.16-158.38,91.15-220.15h157.39c-109.63,47.42-192.05,127.14-192.05,214.4,0,64.83,38.87,106.65,109.52,106.65,106.52,0,179.21-95.02,215.91-203.65v169.57c-29.45,56.37-73.85,98.83-127.02,132.6-46.63,29.62-95.98,57.05-135.97,95.7-23.22,22.44-44.21,50.27-48.06,83.28-5.76,77.49,53.77,123.72,120.48,124.08,65.35.37,135.27-34.37,176.02-85.37,3.5-4.39,13.15-17.85,14.56-20.83v132.68h-352.28c-14.64-34.48-22.27-71.99-22.27-110.15,0-110.41,71.75-168.86,143.38-210.61-85.89-9.44-150.75-91.59-150.75-208.2Z"/>
+      </svg>
+    </span>
+    <span class="blog-eyebrow-label">Blog</span>
+  </div>
   <h1>Nutricosmética con criterio</h1>
   <p class="blog-hero-sub">Contenido honesto sobre suplementación, cuidado de la piel desde dentro y ciencia sin marketing barato.</p>
 </header>
@@ -251,7 +271,6 @@ body{
       <img src="blog-portada-vitamina-c.png" alt="Mujer mirando la hora frente a estantería de suplementos" loading="lazy">
     </div>
     <div class="blog-post-content">
-      <div class="blog-post-date">5 agosto 2026 · 7 min de lectura</div>
       <h2>¿Cuánto tarda la vitamina C en hacer efecto en la piel?</h2>
       <p class="blog-post-excerpt">Los tiempos reales según la ciencia, sin promesas de tres días. Una guía honesta sobre cuándo empiezan a notarse los efectos de la suplementación con vitamina C, y por qué la constancia importa más que la dosis.</p>
       <div class="blog-post-tags">
@@ -260,6 +279,7 @@ body{
         <span>Constancia</span>
       </div>
       <span class="blog-post-cta">Leer artículo →</span>
+      <span class="blog-post-date">5 agosto 2026 · 7 min de lectura</span>
     </div>
   </a>
 
@@ -268,7 +288,6 @@ body{
       <img src="blog-portada-etiqueta.jpg" alt="Botes de suplementos con lupa examinando la etiqueta" loading="lazy">
     </div>
     <div class="blog-post-content">
-      <div class="blog-post-date">27 julio 2026 · 8 min de lectura</div>
       <h2>Cómo leer <em>(y entender)</em> una etiqueta de suplemento</h2>
       <p class="blog-post-excerpt">Los 4 pilares que separan la calidad real del marketing de bote: formas químicas, transparencia de dosis, orden de ingredientes y aditivos técnicos. Con ejemplos aplicados y checklist final para decidir con criterio.</p>
       <div class="blog-post-tags">
@@ -277,6 +296,7 @@ body{
         <span>Formulación</span>
       </div>
       <span class="blog-post-cta">Leer artículo →</span>
+      <span class="blog-post-date">27 julio 2026 · 8 min de lectura</span>
     </div>
   </a>
 

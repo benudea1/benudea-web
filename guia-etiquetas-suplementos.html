@@ -190,84 +190,173 @@ body{
 @media (max-width: 720px){ .article-quote-img{margin: 40px 0;} }
 
 /* Pilares */
-.pilares-wrap{counter-reset: pilar-counter;}
+/* Pilares en grid 2x2 interactivo — sin iconos, sin numeración */
+.pilares-wrap{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin: 36px -30px;
+}
 .article-pilar{
-  margin: 32px 0; padding: 24px 0 24px 24px;
-  border-left: 2px solid var(--orange-brand);
+  background: #fff;
+  border: 1px solid rgba(127,151,149,0.25);
+  border-radius: 10px;
+  padding: 30px 28px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.article-pilar::before{
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--orange-brand);
+  transform: scaleX(0.15);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+}
+.article-pilar:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px rgba(90,110,109,0.18);
+  border-color: var(--orange-brand);
+}
+.article-pilar:hover::before{
+  transform: scaleX(1);
 }
 .article-pilar h4{
-  font-family: var(--font-display); font-style: italic;
-  font-size: 20px; font-weight: 500; color: var(--ink);
-  margin-bottom: 12px; line-height: 1.3;
-}
-.article-pilar h4::before{
-  content: counter(pilar-counter, decimal-leading-zero) '.';
-  counter-increment: pilar-counter;
-  font-family: var(--font-numeric);
-  color: var(--orange-brand); font-weight: 700; font-style: normal;
-  margin-right: 10px; letter-spacing: -0.01em;
+  font-family: var(--font-display);
+  font-style: normal;
+  font-size: 20px; font-weight: 600; color: var(--ink);
+  margin-bottom: 14px; line-height: 1.25;
+  letter-spacing: -0.005em;
 }
 .article-pilar p{
-  font-size: 16px; margin: 0 0 12px;
-  color: var(--carbon); line-height: 1.65;
+  font-size: 15px; margin: 0 0 12px;
+  color: var(--carbon); line-height: 1.6;
 }
 .article-pilar p:last-child{margin-bottom: 0;}
+.article-pilar p strong{color: var(--ink); font-weight: 600;}
 
-/* Tabla comparativa editorial */
-.article-compare{
-  margin: 40px -30px;
-  border-top: 1px solid rgba(127,151,149,0.35);
-  border-bottom: 1px solid rgba(127,151,149,0.35);
+@media (max-width: 640px){
+  .pilares-wrap{grid-template-columns: 1fr; gap: 14px; margin: 32px 0;}
+  .article-pilar{padding: 24px 22px;}
 }
-.article-compare-header{
-  display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
-  padding: 16px 32px;
-  border-bottom: 1px solid rgba(127,151,149,0.35);
+
+/* Flip cards interactivas: Marketing dice ↔ Debes buscar */
+.article-flip-grid{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 36px -30px;
+  perspective: 1400px;
+}
+.flip-card{
+  height: 220px;
+  cursor: pointer;
+  outline: none;
+}
+.flip-card:focus-visible{outline: 2px solid var(--orange-brand); outline-offset: 4px; border-radius: 12px;}
+.flip-card-inner{
+  position: relative;
+  width: 100%; height: 100%;
+  transition: transform 0.7s cubic-bezier(0.4, 0.0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.flip-card:hover .flip-card-inner,
+.flip-card.flipped .flip-card-inner,
+.flip-card:focus-within .flip-card-inner{
+  transform: rotateY(180deg);
+}
+.flip-card-front, .flip-card-back{
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  padding: 28px 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow: 0 2px 12px rgba(90,110,109,0.08);
+  transition: box-shadow 0.3s ease;
+}
+.flip-card:hover .flip-card-front,
+.flip-card:hover .flip-card-back{
+  box-shadow: 0 12px 30px rgba(90,110,109,0.18);
+}
+.flip-card-front{
   background: var(--cream);
+  border: 1px solid rgba(127,151,149,0.25);
 }
-.article-compare-header span{
+.flip-card-back{
+  background: var(--teal-dark);
+  color: #fff;
+  transform: rotateY(180deg);
+}
+.flip-label{
   font-family: var(--font-body);
-  font-size: 10px; letter-spacing: 3px;
-  text-transform: uppercase; font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--carbon);
+  opacity: 0.6;
 }
-.article-compare-header span:first-child{color: var(--carbon);}
-.article-compare-header span:last-child{color: var(--orange-brand); padding-left: 26px;}
-.article-compare-row{
-  display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
-  padding: 20px 32px; align-items: baseline;
+.flip-label-back{
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--orange-soft);
 }
-.article-compare-row + .article-compare-row{
-  border-top: 1px dotted rgba(127,151,149,0.3);
+.flip-text{
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--carbon);
+  line-height: 1.35;
+  margin: 12px 0;
 }
-.article-compare-marketing{
-  font-family: var(--font-body); font-size: 15px;
-  color: var(--carbon); font-style: italic;
-  line-height: 1.5; opacity: 0.85;
+.flip-text::before{content: '\201C'; color: var(--orange-brand); font-weight: 700; margin-right: 2px;}
+.flip-text::after{content: '\201D'; color: var(--orange-brand); font-weight: 700; margin-left: 2px;}
+.flip-text-back{
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: #fff;
+  line-height: 1.55;
+  font-weight: 500;
+  margin: 12px 0;
 }
-.article-compare-marketing::before{
-  content: '"'; color: var(--orange-brand); margin-right: 2px;
-  font-family: var(--font-display); font-weight: 700;
+.flip-hint{
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--orange-brand);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
-.article-compare-marketing::after{
-  content: '"'; color: var(--orange-brand); margin-left: 2px;
-  font-family: var(--font-display); font-weight: 700;
+.flip-hint::after{
+  content: "↻";
+  font-size: 14px;
+  transition: transform 0.3s ease;
 }
-.article-compare-real{
-  font-family: var(--font-body); font-size: 15px;
-  color: var(--ink); font-weight: 500;
-  line-height: 1.5;
-  padding-left: 24px;
-  border-left: 2px solid var(--teal-dark);
-}
-@media (max-width: 720px){
-  .article-compare, .article-compare-row, .article-compare-header{
-    margin: 32px 0;
-  }
-  .article-compare-row, .article-compare-header{
-    grid-template-columns: 1fr; gap: 8px;
-  }
-  .article-compare-real{padding-left: 12px;}
-  .article-compare-header span:last-child{padding-left: 0;}
+.flip-card:hover .flip-hint::after{transform: rotate(180deg);}
+
+@media (max-width: 640px){
+  .article-flip-grid{grid-template-columns: 1fr; gap: 14px; margin: 32px 0;}
+  .flip-card{height: 200px;}
+  .flip-card-front, .flip-card-back{padding: 24px 22px;}
+  .flip-text{font-size: 16px;}
+  .flip-text-back{font-size: 14px;}
 }
 
 /* Ingredientes Be-C Complex */
@@ -289,52 +378,72 @@ body{
   font-style: normal; margin: 0; font-weight: 500;
 }
 
-/* Grid interactivo de tarjetas */
+/* Flip cards ingredientes Be-C Complex */
 .article-ing-grid{
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
   margin: 32px -60px;
+  perspective: 1400px;
 }
 .article-ing{
-  background: #fff;
-  border: 1px solid rgba(127,151,149,0.25);
-  border-radius: 10px;
+  height: 380px;
+  cursor: pointer;
+  outline: none;
+}
+.article-ing:focus-visible{outline: 2px solid var(--orange-brand); outline-offset: 4px; border-radius: 12px;}
+.article-ing-inner{
+  position: relative;
+  width: 100%; height: 100%;
+  transition: transform 0.7s cubic-bezier(0.4, 0.0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.article-ing:hover .article-ing-inner,
+.article-ing.flipped .article-ing-inner,
+.article-ing:focus-within .article-ing-inner{
+  transform: rotateY(180deg);
+}
+.article-ing-front, .article-ing-back{
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
   overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow: 0 2px 12px rgba(90,110,109,0.08);
+  transition: box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-  cursor: default;
 }
-.article-ing:hover{
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(90,110,109,0.15);
-  border-color: var(--orange-brand);
+.article-ing:hover .article-ing-front,
+.article-ing:hover .article-ing-back{
+  box-shadow: 0 14px 32px rgba(90,110,109,0.18);
+}
+/* FRONT: imagen + nombre + label */
+.article-ing-front{
+  background: #fff;
+  border: 1px solid rgba(127,151,149,0.25);
 }
 .article-ing-img{
   width: 100%;
-  height: 180px;
+  height: 200px;
   background: var(--cream);
   display: flex; align-items: center; justify-content: center;
   padding: 20px;
   border-bottom: 1px solid rgba(127,151,149,0.15);
   overflow: hidden;
+  flex-shrink: 0;
 }
 .article-ing-img img{
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 100%; max-height: 100%;
   object-fit: contain;
-  transition: transform 0.35s ease;
 }
-.article-ing:hover .article-ing-img img{
-  transform: scale(1.06);
-}
-.article-ing-content{
-  padding: 22px 22px 24px;
+.article-ing-front-content{
+  padding: 20px 22px;
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 .article-ing-label{
   font-family: var(--font-body);
@@ -342,54 +451,142 @@ body{
   color: var(--orange-brand); font-weight: 700;
   margin-bottom: 8px; display: block;
 }
-.article-ing-content h4{
+.article-ing-front-content h4{
   font-family: var(--font-display);
-  font-size: 19px; color: var(--ink);
-  margin-bottom: 8px; font-weight: 500; font-style: normal;
+  font-size: 18px; color: var(--ink);
+  margin: 0; font-weight: 600; font-style: normal;
   line-height: 1.25;
-}
-.article-ing-content h4 em{color: var(--teal-dark); font-size: 15px;}
-.article-ing-dose{
-  font-family: var(--font-numeric);
-  font-size: 15px; color: var(--orange-brand); font-weight: 700;
-  margin-bottom: 12px;
-  padding-bottom: 12px;
-  border-bottom: 1px dotted rgba(127,151,149,0.4);
   letter-spacing: -0.005em;
 }
-.article-ing-content p{
-  font-size: 14.5px; color: var(--carbon);
-  line-height: 1.6; margin: 0;
+.article-ing-front-content h4 em{color: var(--teal-dark); font-size: 14px; font-style: italic;}
+.article-ing-hint{
+  font-family: var(--font-body);
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--orange-brand); font-weight: 700;
+  margin-top: 14px;
+  display: flex; align-items: center; gap: 6px;
 }
+.article-ing-hint::after{
+  content: "↻";
+  font-size: 14px;
+  transition: transform 0.3s ease;
+}
+.article-ing:hover .article-ing-hint::after{transform: rotate(180deg);}
+
+/* BACK: dosis + análisis */
+.article-ing-back{
+  background: var(--teal-dark);
+  color: #fff;
+  transform: rotateY(180deg);
+  padding: 26px 24px;
+  justify-content: center;
+}
+.article-ing-back-label{
+  font-family: var(--font-body);
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--orange-soft); font-weight: 700;
+  margin-bottom: 14px;
+}
+.article-ing-dose{
+  font-family: var(--font-numeric);
+  font-size: 22px; color: var(--orange-soft); font-weight: 700;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px dotted rgba(255,255,255,0.25);
+  letter-spacing: -0.005em;
+  line-height: 1.2;
+}
+.article-ing-back p{
+  font-family: var(--font-body);
+  font-size: 13.5px; color: rgba(255,255,255,0.92);
+  line-height: 1.55; margin: 0;
+}
+.article-ing-back p strong{color: #fff; font-weight: 600;}
+
 @media (max-width: 900px){
-  .article-ing-grid{margin: 32px 0;}
+  .article-ing-grid{grid-template-columns: repeat(2, 1fr); margin: 32px 0;}
 }
 @media (max-width: 640px){
-  .article-ing-grid{grid-template-columns: 1fr; gap: 16px;}
-  .article-ing-img{height: 160px; padding: 16px;}
-  .article-ing-content{padding: 18px 20px 22px;}
+  .article-ing-grid{grid-template-columns: 1fr; gap: 14px;}
+  .article-ing{height: 360px;}
+  .article-ing-img{height: 180px; padding: 16px;}
+  .article-ing-back{padding: 22px 20px;}
 }
 
-/* Checklist */
-.checklist-wrap{counter-reset: check-counter;}
-.article-check{
-  margin: 28px 0; padding: 22px 0 22px 24px;
-  border-left: 2px solid var(--teal-dark);
+/* FAQs · acordeón (5 preguntas antes de comprar) */
+.faq-wrap{
+  margin: 36px -30px;
+  border-top: 1px solid rgba(127,151,149,0.35);
 }
-.article-check h4{
-  font-family: var(--font-display); font-style: italic;
-  font-size: 20px; font-weight: 500; color: var(--ink);
-  margin-bottom: 12px; line-height: 1.3;
+.faq-item{
+  border-bottom: 1px solid rgba(127,151,149,0.35);
+  padding: 0;
 }
-.article-check h4::before{
-  content: counter(check-counter) '.';
-  counter-increment: check-counter;
-  font-family: var(--font-numeric);
-  color: var(--teal-dark); font-weight: 700; font-style: normal;
-  margin-right: 10px;
+.faq-item[open] .faq-question{color: var(--orange-brand);}
+.faq-item[open] .faq-question::after{
+  transform: rotate(180deg);
+  color: var(--orange-brand);
 }
-.article-check p{
-  font-size: 16px; margin: 0; color: var(--carbon); line-height: 1.65;
+.faq-question{
+  font-family: var(--font-display);
+  font-style: normal;
+  font-size: 19px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.35;
+  letter-spacing: -0.005em;
+  padding: 24px 60px 24px 30px;
+  cursor: pointer;
+  position: relative;
+  list-style: none;
+  transition: color 0.2s ease;
+  outline: none;
+}
+.faq-question::-webkit-details-marker{display: none;}
+.faq-question::marker{display: none;}
+.faq-question:hover{color: var(--orange-brand);}
+.faq-question:focus-visible{color: var(--orange-brand);}
+.faq-question::after{
+  content: "";
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translateY(-50%);
+  border-right: 2px solid var(--teal-dark);
+  border-bottom: 2px solid var(--teal-dark);
+  transform-origin: center;
+  transform: translateY(-70%) rotate(45deg);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+.faq-item[open] .faq-question::after{
+  transform: translateY(-30%) rotate(-135deg);
+  border-color: var(--orange-brand);
+}
+.faq-answer{
+  padding: 0 60px 28px 30px;
+  animation: faqFadeIn 0.35s ease;
+}
+.faq-answer p{
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--carbon);
+  line-height: 1.65;
+  margin: 0;
+}
+.faq-answer p strong{color: var(--ink); font-weight: 600;}
+
+@keyframes faqFadeIn{
+  from{opacity: 0; transform: translateY(-6px);}
+  to{opacity: 1; transform: translateY(0);}
+}
+
+@media (max-width: 640px){
+  .faq-wrap{margin: 32px 0;}
+  .faq-question{padding: 20px 48px 20px 4px; font-size: 17px;}
+  .faq-question::after{right: 8px; width: 12px; height: 12px;}
+  .faq-answer{padding: 0 48px 24px 4px;}
 }
 
 /* Aplicación */
@@ -491,10 +688,8 @@ body{
 </nav>
 
 <header class="article-hero">
-  <div class="article-eyebrow">BeNudea · Blog</div>
   <h1>Cómo leer <em>(y entender)</em> una etiqueta de suplemento</h1>
   <p class="article-hero-sub">La mayoría de las decisiones de compra en suplementación se toman mirando el frente del bote. Este recurso te enseña a mirar donde realmente importa: el listado de ingredientes.</p>
-  <p class="article-meta">27 julio 2026 · 8 min de lectura</p>
 </header>
 
 <article class="article-body">
@@ -516,26 +711,26 @@ body{
 
     <div class="article-pilar">
       <h4>Formas químicas</h4>
-      <p>No todos los ingredientes son iguales aunque compartan nombre. La <strong>forma química</strong> determina cuánto absorbe realmente tu organismo.</p>
-      <p>Las formas <strong>orgánicas</strong> (glicinatos quelados, citratos, PureWay-C®, bisglicinatos) tienen mayor biodisponibilidad y menor impacto gastrointestinal. Las formas <strong>inorgánicas</strong> (óxidos, sulfatos, carbonatos) son más baratas de producir y significativamente menos absorbibles. Si un suplemento de magnesio usa "óxido de magnesio", usa la forma con menor absorción del mercado — a pesar de que en el etiquetado figure la misma cantidad en mg.</p>
+      <p>La <strong>forma química</strong> determina cuánto absorbe tu organismo. Un mismo mineral en glicinato quelado o en óxido cambia hasta 4x la biodisponibilidad.</p>
+      <p>Busca <strong>orgánicas</strong> (glicinato, citrato, patentes tipo PureWay-C® o Albion®). Huye de las <strong>inorgánicas</strong> baratas (óxido, sulfato, carbonato).</p>
     </div>
 
     <div class="article-pilar">
       <h4>Transparencia de dosis</h4>
-      <p>Las <strong>"Proprietary Blends"</strong> o mezclas propietarias son el mayor obstáculo para evaluar un producto. Cuando ves "Complejo Antioxidante Exclusivo 450 mg" seguido de diez ingredientes, el fabricante solo está obligado a declarar el total del blend, no la cantidad de cada componente individual.</p>
-      <p>Esto significa que un ingrediente puede aparecer en una dosis tan baja como <strong>0,001 mg</strong> y seguir figurando en la etiqueta. En suplementación, <strong>la dosis lo es todo.</strong> Sin dosis individuales declaradas, es imposible saber si el producto es eficaz o simplemente decorativo.</p>
+      <p>Las <strong>"Proprietary Blends"</strong> ocultan cuánto lleva cada ingrediente. El fabricante solo declara el total del complejo, no las cantidades individuales.</p>
+      <p>Un ingrediente puede aparecer a <strong>0,001 mg</strong> y seguir figurando. Sin dosis desglosadas, es imposible saber si funciona.</p>
     </div>
 
     <div class="article-pilar">
       <h4>Orden de ingredientes</h4>
-      <p>La normativa europea obliga a declarar los ingredientes <strong>en orden decreciente por peso</strong>. Lo que aparece primero es lo que más abunda. Lo que aparece al final, apenas está presente.</p>
-      <p>Si en un suplemento "de zinc" el zinc aparece en séptima posición, detrás de varios excipientes, la cantidad real puede ser irrisoria. Usa este orden como primer filtro rápido: los activos declarados como principales deben aparecer entre los primeros ingredientes, no enterrados al final de una lista.</p>
+      <p>La normativa europea exige listar los ingredientes <strong>en orden decreciente por peso</strong>. Los primeros son los más presentes; los últimos, casi trazas.</p>
+      <p>Si el activo estrella aparece en séptima posición detrás de excipientes, algo no cuadra. Los activos van arriba.</p>
     </div>
 
     <div class="article-pilar">
       <h4>Aditivos técnicos</h4>
-      <p>Los excipientes tienen una función legítima: permiten fabricar la cápsula o el comprimido. Pero su presencia debe ser mínima y no comprometer la absorción de los activos.</p>
-      <p>El <strong>E470b (estearato de magnesio)</strong> es un lubricante industrial extendido que puede crear una capa hidrofóbica alrededor de los activos, reduciendo su contacto con las enzimas digestivas. El <strong>E551 (dióxido de silicio sintético)</strong> es un antiaglomerante omnipresente sin aporte nutricional. Ninguno de los dos es tóxico a dosis habituales, pero su presencia masiva es una señal de optimización de costes de fabricación, no de calidad para el consumidor.</p>
+      <p>Los excipientes son necesarios para fabricar la cápsula, pero deben ser <strong>mínimos</strong> y no comprometer la absorción de los activos.</p>
+      <p>El <strong>E470b</strong> (estearato de magnesio) reduce el contacto con las enzimas digestivas. El <strong>E551</strong> es carga inerte. Su presencia masiva señala coste, no calidad.</p>
     </div>
 
   </div>
@@ -545,43 +740,122 @@ body{
 
   <p>El marketing de suplementos tiene su propio idioma. Esta tabla te lo traduce.</p>
 
-  <div class="article-compare">
-    <div class="article-compare-header">
-      <span>Marketing dice</span>
-      <span>Debes buscar</span>
+  <p style="text-align:center;font-family:var(--font-body);font-size:12px;color:var(--teal-dark);letter-spacing:2px;text-transform:uppercase;font-weight:600;margin:24px 0 -8px;opacity:0.75;">Pasa el ratón (o toca) para ver la respuesta</p>
+
+  <div class="article-flip-grid">
+
+    <div class="flip-card" tabindex="0" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <span class="flip-label">Marketing dice</span>
+          <p class="flip-text">Fórmula avanzada con 20 ingredientes</p>
+          <span class="flip-hint">Descubre qué buscar</span>
+        </div>
+        <div class="flip-card-back">
+          <span class="flip-label-back">Debes buscar</span>
+          <p class="flip-text-back">Pocos ingredientes, a dosis eficaces y con formas químicas de alta biodisponibilidad.</p>
+        </div>
+      </div>
     </div>
-    <div class="article-compare-row">
-      <div class="article-compare-marketing">Fórmula avanzada con 20 ingredientes</div>
-      <div class="article-compare-real">Pocos ingredientes, a dosis eficaces y con formas químicas de alta biodisponibilidad</div>
+
+    <div class="flip-card" tabindex="0" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <span class="flip-label">Marketing dice</span>
+          <p class="flip-text">Complejo propietario exclusivo</p>
+          <span class="flip-hint">Descubre qué buscar</span>
+        </div>
+        <div class="flip-card-back">
+          <span class="flip-label-back">Debes buscar</span>
+          <p class="flip-text-back">Cada ingrediente declarado con su dosis individual en mg o μg.</p>
+        </div>
+      </div>
     </div>
-    <div class="article-compare-row">
-      <div class="article-compare-marketing">Complejo propietario exclusivo sin desglose</div>
-      <div class="article-compare-real">Cada ingrediente declarado con su dosis individual en mg o μg</div>
+
+    <div class="flip-card" tabindex="0" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <span class="flip-label">Marketing dice</span>
+          <p class="flip-text">Con vitamina C</p>
+          <span class="flip-hint">Descubre qué buscar</span>
+        </div>
+        <div class="flip-card-back">
+          <span class="flip-label-back">Debes buscar</span>
+          <p class="flip-text-back">Forma especificada: ácido ascórbico, ascorbato cálcico, PureWay-C®, etc.</p>
+        </div>
+      </div>
     </div>
-    <div class="article-compare-row">
-      <div class="article-compare-marketing">Con vitamina C (sin especificar forma)</div>
-      <div class="article-compare-real">Forma especificada: ácido ascórbico, ascorbato cálcico, PureWay-C®, etc.</div>
+
+    <div class="flip-card" tabindex="0" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <span class="flip-label">Marketing dice</span>
+          <p class="flip-text">Con zinc</p>
+          <span class="flip-hint">Descubre qué buscar</span>
+        </div>
+        <div class="flip-card-back">
+          <span class="flip-label-back">Debes buscar</span>
+          <p class="flip-text-back">Forma quelada: bisglicinato, glicinato, gluconato — nunca óxido ni sulfato.</p>
+        </div>
+      </div>
     </div>
-    <div class="article-compare-row">
-      <div class="article-compare-marketing">Con zinc (sin especificar forma)</div>
-      <div class="article-compare-real">Forma quelada: bisglicinato, glicinato, gluconato — no óxido ni sulfato</div>
+
+    <div class="flip-card" tabindex="0" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <span class="flip-label">Marketing dice</span>
+          <p class="flip-text">Lista con 8 o más excipientes</p>
+          <span class="flip-hint">Descubre qué buscar</span>
+        </div>
+        <div class="flip-card-back">
+          <span class="flip-label-back">Debes buscar</span>
+          <p class="flip-text-back">Lista corta, excipientes funcionales mínimos y preferiblemente naturales.</p>
+        </div>
+      </div>
     </div>
-    <div class="article-compare-row">
-      <div class="article-compare-marketing">Lista con 8 o más excipientes</div>
-      <div class="article-compare-real">Lista corta, excipientes funcionales mínimos y preferiblemente naturales</div>
+
+    <div class="flip-card" tabindex="0" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <span class="flip-label">Marketing dice</span>
+          <p class="flip-text">Respaldado por la ciencia</p>
+          <span class="flip-hint">Descubre qué buscar</span>
+        </div>
+        <div class="flip-card-back">
+          <span class="flip-label-back">Debes buscar</span>
+          <p class="flip-text-back">Referencia a estudios concretos y a ingredientes patentados con ensayos publicados.</p>
+        </div>
+      </div>
     </div>
-    <div class="article-compare-row">
-      <div class="article-compare-marketing">Respaldado por la ciencia</div>
-      <div class="article-compare-real">Referencia a estudios concretos y a ingredientes patentados con ensayos publicados</div>
+
+    <div class="flip-card" tabindex="0" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <span class="flip-label">Marketing dice</span>
+          <p class="flip-text">Natural u orgánico</p>
+          <span class="flip-hint">Descubre qué buscar</span>
+        </div>
+        <div class="flip-card-back">
+          <span class="flip-label-back">Debes buscar</span>
+          <p class="flip-text-back">Verifica que los ingredientes activos sean biodisponibles — "natural" no implica eficaz.</p>
+        </div>
+      </div>
     </div>
-    <div class="article-compare-row">
-      <div class="article-compare-marketing">Natural u orgánico en el frontal del bote</div>
-      <div class="article-compare-real">Verificar que los ingredientes activos son biodisponibles — natural no implica eficaz</div>
+
+    <div class="flip-card" tabindex="0" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <span class="flip-label">Marketing dice</span>
+          <p class="flip-text">Precio muy bajo para la cantidad declarada</p>
+          <span class="flip-hint">Descubre qué buscar</span>
+        </div>
+        <div class="flip-card-back">
+          <span class="flip-label-back">Debes buscar</span>
+          <p class="flip-text-back">Coste de materias primas premium reflejado en el precio final.</p>
+        </div>
+      </div>
     </div>
-    <div class="article-compare-row">
-      <div class="article-compare-marketing">Precio muy bajo para la cantidad declarada</div>
-      <div class="article-compare-real">Coste de materias primas premium reflejado en el precio final</div>
-    </div>
+
   </div>
 
 
@@ -594,75 +868,147 @@ body{
     <h3>Be-C Complex — análisis ingrediente a ingrediente</h3>
   </div>
 
+  <p style="text-align:center;font-family:var(--font-body);font-size:12px;color:var(--teal-dark);letter-spacing:2px;text-transform:uppercase;font-weight:600;margin:24px 0 -8px;opacity:0.75;">Pasa el ratón (o toca) para ver el análisis técnico</p>
+
   <div class="article-ing-grid">
 
-  <div class="article-ing">
-    <div class="article-ing-img"><img src="imagenes blog 1_01/2.png" alt="PureWay-C Vitamina C" loading="lazy"></div>
-    <div class="article-ing-content">
-      <span class="article-ing-label">Activo principal</span>
-      <h4>Vitamina C · PureWay-C®</h4>
-      <div class="article-ing-dose">450 mg · 563% VRN</div>
-      <p>Dosis calibrada para superar el <strong>umbral clínicamente relevante</strong> de síntesis de colágeno, función inmune y protección antioxidante. PureWay-C® es un complejo lipofílico con estudios que demuestran mayor absorción y retención que el ácido ascórbico genérico.</p>
+  <div class="article-ing" tabindex="0" onclick="this.classList.toggle('flipped')">
+    <div class="article-ing-inner">
+      <div class="article-ing-front">
+        <div class="article-ing-img"><img src="imagenes blog 1_01/2.png" alt="PureWay-C Vitamina C" loading="lazy"></div>
+        <div class="article-ing-front-content">
+          <div>
+            <span class="article-ing-label">Activo principal</span>
+            <h4>Vitamina C · PureWay-C®</h4>
+          </div>
+          <span class="article-ing-hint">Ver análisis</span>
+        </div>
+      </div>
+      <div class="article-ing-back">
+        <span class="article-ing-back-label">Dosis · análisis</span>
+        <div class="article-ing-dose">450 mg · 563% VRN</div>
+        <p>Dosis calibrada para superar el <strong>umbral clínicamente relevante</strong> de síntesis de colágeno, función inmune y protección antioxidante. PureWay-C® es un complejo lipofílico con mayor absorción y retención que el ácido ascórbico.</p>
+      </div>
     </div>
   </div>
 
-  <div class="article-ing">
-    <div class="article-ing-img"><img src="imagenes blog 1_01/3.png" alt="Extracto de granada" loading="lazy"></div>
-    <div class="article-ing-content">
-      <span class="article-ing-label">Polifenol antioxidante</span>
-      <h4>Extracto de granada · <em>Punica granatum</em></h4>
-      <div class="article-ing-dose">50 mg · ácido elágico: 20 mg (40%)</div>
-      <p>Estandarizado al <strong>40% en ácido elágico</strong>, polifenol de referencia por su actividad antioxidante sistémica, protección del ADN y efecto sobre la elasticidad cutánea. Dosis coherente con los rangos publicados en la literatura científica.</p>
+  <div class="article-ing" tabindex="0" onclick="this.classList.toggle('flipped')">
+    <div class="article-ing-inner">
+      <div class="article-ing-front">
+        <div class="article-ing-img"><img src="imagenes blog 1_01/3.png" alt="Extracto de granada" loading="lazy"></div>
+        <div class="article-ing-front-content">
+          <div>
+            <span class="article-ing-label">Polifenol antioxidante</span>
+            <h4>Extracto de granada · <em>Punica granatum</em></h4>
+          </div>
+          <span class="article-ing-hint">Ver análisis</span>
+        </div>
+      </div>
+      <div class="article-ing-back">
+        <span class="article-ing-back-label">Dosis · análisis</span>
+        <div class="article-ing-dose">50 mg · ácido elágico 40%</div>
+        <p>Estandarizado al <strong>40% en ácido elágico</strong>, polifenol de referencia por su actividad antioxidante sistémica, protección del ADN y efecto sobre la elasticidad cutánea.</p>
+      </div>
     </div>
   </div>
 
-  <div class="article-ing">
-    <div class="article-ing-img"><img src="imagenes blog 1_01/4.png" alt="Extracto de semilla de uva" loading="lazy"></div>
-    <div class="article-ing-content">
-      <span class="article-ing-label">Antioxidante sistémico</span>
-      <h4>Extracto de uva · <em>Vitis vinifera</em></h4>
-      <div class="article-ing-dose">50 mg · proantocianidinas: 47,5 mg (95%)</div>
-      <p>Estandarizado al <strong>95% en proantocianidinas</strong>, concentración de referencia en investigación sobre protección vascular y efecto antiinflamatorio. Uno de los antioxidantes más potentes documentados científicamente.</p>
+  <div class="article-ing" tabindex="0" onclick="this.classList.toggle('flipped')">
+    <div class="article-ing-inner">
+      <div class="article-ing-front">
+        <div class="article-ing-img"><img src="imagenes blog 1_01/4.png" alt="Extracto de semilla de uva" loading="lazy"></div>
+        <div class="article-ing-front-content">
+          <div>
+            <span class="article-ing-label">Antioxidante sistémico</span>
+            <h4>Extracto de uva · <em>Vitis vinifera</em></h4>
+          </div>
+          <span class="article-ing-hint">Ver análisis</span>
+        </div>
+      </div>
+      <div class="article-ing-back">
+        <span class="article-ing-back-label">Dosis · análisis</span>
+        <div class="article-ing-dose">50 mg · proantocianidinas 95%</div>
+        <p>Estandarizado al <strong>95% en proantocianidinas</strong>, concentración de referencia en investigación sobre protección vascular y efecto antiinflamatorio.</p>
+      </div>
     </div>
   </div>
 
-  <div class="article-ing">
-    <div class="article-ing-img"><img src="imagenes blog 1_01/5.png" alt="Zinc Albion Minerals" loading="lazy"></div>
-    <div class="article-ing-content">
-      <span class="article-ing-label">Mineral quelado · Albion®</span>
-      <h4>Zinc · Bisglicinato Albion®</h4>
-      <div class="article-ing-dose">5 mg · 50% VRN</div>
-      <p>Dosis calibrada al 50% VRN, <strong>complementando la dieta</strong> sin superar el máximo tolerable de la EFSA. El bisglicinato quelado Albion® Minerals maximiza la biodisponibilidad sin interferir con otros minerales.</p>
+  <div class="article-ing" tabindex="0" onclick="this.classList.toggle('flipped')">
+    <div class="article-ing-inner">
+      <div class="article-ing-front">
+        <div class="article-ing-img"><img src="imagenes blog 1_01/5.png" alt="Zinc Albion Minerals" loading="lazy"></div>
+        <div class="article-ing-front-content">
+          <div>
+            <span class="article-ing-label">Mineral quelado · Albion®</span>
+            <h4>Zinc · Bisglicinato Albion®</h4>
+          </div>
+          <span class="article-ing-hint">Ver análisis</span>
+        </div>
+      </div>
+      <div class="article-ing-back">
+        <span class="article-ing-back-label">Dosis · análisis</span>
+        <div class="article-ing-dose">5 mg · 50% VRN</div>
+        <p>Dosis calibrada al 50% VRN, <strong>complementando la dieta</strong> sin superar el máximo tolerable EFSA. El bisglicinato quelado Albion® maximiza la biodisponibilidad sin interferir con otros minerales.</p>
+      </div>
     </div>
   </div>
 
-  <div class="article-ing">
-    <div class="article-ing-img"><img src="imagenes blog 1_01/6.png" alt="Cobre Albion Minerals" loading="lazy"></div>
-    <div class="article-ing-content">
-      <span class="article-ing-label">Mineral quelado · Albion®</span>
-      <h4>Cobre · Bisglicinato Albion®</h4>
-      <div class="article-ing-dose">0,5 mg · 50% VRN</div>
-      <p>Ratio Zn:Cu <strong>10:1</strong>, dentro del rango fisiológico recomendado, para que la ingesta de zinc no compita con la absorción intestinal de cobre. Bisglicinato Albion® Minerals, no sulfato ni gluconato convencional.</p>
+  <div class="article-ing" tabindex="0" onclick="this.classList.toggle('flipped')">
+    <div class="article-ing-inner">
+      <div class="article-ing-front">
+        <div class="article-ing-img"><img src="imagenes blog 1_01/6.png" alt="Cobre Albion Minerals" loading="lazy"></div>
+        <div class="article-ing-front-content">
+          <div>
+            <span class="article-ing-label">Mineral quelado · Albion®</span>
+            <h4>Cobre · Bisglicinato Albion®</h4>
+          </div>
+          <span class="article-ing-hint">Ver análisis</span>
+        </div>
+      </div>
+      <div class="article-ing-back">
+        <span class="article-ing-back-label">Dosis · análisis</span>
+        <div class="article-ing-dose">0,5 mg · 50% VRN</div>
+        <p>Ratio Zn:Cu <strong>10:1</strong>, dentro del rango fisiológico recomendado, para que la ingesta de zinc no compita con la absorción intestinal de cobre.</p>
+      </div>
     </div>
   </div>
 
-  <div class="article-ing">
-    <div class="article-ing-img"><img src="imagenes blog 1_01/7.png" alt="Extracto de bambu y piel" loading="lazy"></div>
-    <div class="article-ing-content">
-      <span class="article-ing-label">Excipiente natural · sustituye E470b</span>
-      <h4>Extracto de bambú · <em>Bambusa arundinacea</em></h4>
-      <div class="article-ing-dose">25 mg · sílice: 17,5 mg (70%)</div>
-      <p>Sustituye al estearato de magnesio (E470b) sin crear capas hidrofóbicas alrededor de los activos. Aporta <strong>silicio biodisponible</strong>, que contribuye al metabolismo del tejido conectivo y la formación de colágeno.</p>
+  <div class="article-ing" tabindex="0" onclick="this.classList.toggle('flipped')">
+    <div class="article-ing-inner">
+      <div class="article-ing-front">
+        <div class="article-ing-img"><img src="imagenes blog 1_01/7.png" alt="Extracto de bambu y piel" loading="lazy"></div>
+        <div class="article-ing-front-content">
+          <div>
+            <span class="article-ing-label">Excipiente natural · sustituye E470b</span>
+            <h4>Extracto de bambú · <em>Bambusa arundinacea</em></h4>
+          </div>
+          <span class="article-ing-hint">Ver análisis</span>
+        </div>
+      </div>
+      <div class="article-ing-back">
+        <span class="article-ing-back-label">Dosis · análisis</span>
+        <div class="article-ing-dose">25 mg · sílice 70%</div>
+        <p>Sustituye al estearato de magnesio (E470b) sin crear capas hidrofóbicas alrededor de los activos. Aporta <strong>silicio biodisponible</strong> para el tejido conectivo.</p>
+      </div>
     </div>
   </div>
 
-  <div class="article-ing">
-    <div class="article-ing-img"><img src="imagenes blog 1_01/8.png" alt="Harina de arroz integral" loading="lazy"></div>
-    <div class="article-ing-content">
-      <span class="article-ing-label">Excipiente natural · sustituye E551</span>
-      <h4>Harina de arroz integral · <em>Oryza sativa</em></h4>
-      <div class="article-ing-dose">35 mg</div>
-      <p>Agente de carga y fluidez que sustituye al E551 sintético. <strong>Hipoalergénica, sin gluten, vegana</strong> y sin interferir con la absorción. Origen alimentario trazable, no dióxido de silicio.</p>
+  <div class="article-ing" tabindex="0" onclick="this.classList.toggle('flipped')">
+    <div class="article-ing-inner">
+      <div class="article-ing-front">
+        <div class="article-ing-img"><img src="imagenes blog 1_01/8.png" alt="Harina de arroz integral" loading="lazy"></div>
+        <div class="article-ing-front-content">
+          <div>
+            <span class="article-ing-label">Excipiente natural · sustituye E551</span>
+            <h4>Harina de arroz integral · <em>Oryza sativa</em></h4>
+          </div>
+          <span class="article-ing-hint">Ver análisis</span>
+        </div>
+      </div>
+      <div class="article-ing-back">
+        <span class="article-ing-back-label">Dosis · análisis</span>
+        <div class="article-ing-dose">35 mg</div>
+        <p>Agente de carga y fluidez que sustituye al E551 sintético. <strong>Hipoalergénica, sin gluten, vegana</strong> y sin interferir con la absorción. Origen alimentario trazable.</p>
+      </div>
     </div>
   </div>
 
@@ -675,32 +1021,42 @@ body{
 
   <p>Cuando te enfrentes a una etiqueta desconocida, respóndete estas cinco preguntas. Son el atajo más rápido para decidir sin necesidad de ser químico.</p>
 
-  <div class="checklist-wrap">
+  <div class="faq-wrap">
 
-    <div class="article-check">
-      <h4>¿Están declaradas las dosis individuales de cada ingrediente?</h4>
-      <p>Si la etiqueta agrupa varios activos bajo un nombre de "complejo" sin desglosar cuánto hay de cada uno, descarta el producto directamente. La transparencia de dosis es innegociable.</p>
-    </div>
+    <details class="faq-item">
+      <summary class="faq-question">¿Están declaradas las dosis individuales de cada ingrediente?</summary>
+      <div class="faq-answer">
+        <p>Si la etiqueta agrupa varios activos bajo un nombre de "complejo" sin desglosar cuánto hay de cada uno, descarta el producto directamente. La transparencia de dosis es innegociable.</p>
+      </div>
+    </details>
 
-    <div class="article-check">
-      <h4>¿En qué forma química están los minerales y vitaminas?</h4>
-      <p>Busca términos como "glicinato", "quelado", "citrato", "bisglicinato", nombres de patentes (Albion®, Creapure®, PureWay-C®). Si solo dice "zinc" o "magnesio" sin especificar la sal, probablemente sea la forma más barata — y la menos absorbible.</p>
-    </div>
+    <details class="faq-item">
+      <summary class="faq-question">¿En qué forma química están los minerales y vitaminas?</summary>
+      <div class="faq-answer">
+        <p>Busca términos como <strong>"glicinato", "quelado", "citrato", "bisglicinato"</strong> o nombres de patentes (Albion®, Creapure®, PureWay-C®). Si solo dice "zinc" o "magnesio" sin especificar la sal, probablemente sea la forma más barata — y la menos absorbible.</p>
+      </div>
+    </details>
 
-    <div class="article-check">
-      <h4>¿Dónde aparecen los activos en la lista de ingredientes?</h4>
-      <p>Recuerda: orden decreciente por peso. Si el ingrediente estrella del producto aparece en la penúltima posición, detrás de cinco excipientes, hay algo que no cuadra. Los activos principales deben estar arriba.</p>
-    </div>
+    <details class="faq-item">
+      <summary class="faq-question">¿Dónde aparecen los activos en la lista de ingredientes?</summary>
+      <div class="faq-answer">
+        <p>Recuerda: <strong>orden decreciente por peso</strong>. Si el ingrediente estrella del producto aparece en la penúltima posición, detrás de cinco excipientes, hay algo que no cuadra. Los activos principales deben estar arriba.</p>
+      </div>
+    </details>
 
-    <div class="article-check">
-      <h4>¿Cuántos excipientes tiene y cuáles son?</h4>
-      <p>Un suplemento bien formulado no necesita más de dos o tres excipientes funcionales. E470b (estearato de magnesio), E171 (dióxido de titanio) y colorantes artificiales son señales de formulación orientada al coste, no a la calidad del producto.</p>
-    </div>
+    <details class="faq-item">
+      <summary class="faq-question">¿Cuántos excipientes tiene y cuáles son?</summary>
+      <div class="faq-answer">
+        <p>Un suplemento bien formulado no necesita más de dos o tres excipientes funcionales. <strong>E470b</strong> (estearato de magnesio), <strong>E171</strong> (dióxido de titanio) y colorantes artificiales son señales de formulación orientada al coste, no a la calidad del producto.</p>
+      </div>
+    </details>
 
-    <div class="article-check">
-      <h4>¿Las afirmaciones de salud están respaldadas por ingredientes con evidencia?</h4>
-      <p>En la Unión Europea, los <strong>claims de salud</strong> (declaraciones como "contribuye a la formación normal de colágeno") solo están autorizados para ingredientes con evidencia científica validada por la EFSA. Si un producto hace promesas que no puedes verificar en la etiqueta con ingredientes reconocidos, desconfía.</p>
-    </div>
+    <details class="faq-item">
+      <summary class="faq-question">¿Las afirmaciones de salud están respaldadas por ingredientes con evidencia?</summary>
+      <div class="faq-answer">
+        <p>En la Unión Europea, los <strong>claims de salud</strong> (declaraciones como "contribuye a la formación normal de colágeno") solo están autorizados para ingredientes con evidencia científica validada por la EFSA. Si un producto hace promesas que no puedes verificar en la etiqueta con ingredientes reconocidos, desconfía.</p>
+      </div>
+    </details>
 
   </div>
 

@@ -8822,6 +8822,51 @@ html body #mobileMenuPanel button.mobile-menu-close{
   }
 }
 
+/* ═══════════════════════════════════════════════════════════════════
+   Nuevo estilo eyebrow con isotipo BeNudea (2026-08)
+   Duplicación de clase (.eyebrow.eyebrow) para máxima especificidad
+   ═══════════════════════════════════════════════════════════════════ */
+p.eyebrow.eyebrow,
+span.nosotros-eyebrow.nosotros-eyebrow,
+span.piel2-eyebrow-left.piel2-eyebrow-left,
+span.producto-section-eyebrow.producto-section-eyebrow,
+.metodo-head p.eyebrow.eyebrow,
+.pq-header p.eyebrow.eyebrow{
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  font-family: 'Mona Sans', 'Poppins', system-ui, sans-serif !important;
+  font-size: 15px !important;
+  color: #5A6E6D !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  text-decoration: underline !important;
+  text-underline-offset: 6px !important;
+  text-decoration-thickness: 1px !important;
+  text-decoration-color: #5A6E6D !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  line-height: 1.2 !important;
+}
+p.eyebrow.eyebrow::before,
+span.nosotros-eyebrow.nosotros-eyebrow::before,
+span.piel2-eyebrow-left.piel2-eyebrow-left::before,
+span.producto-section-eyebrow.producto-section-eyebrow::before,
+.metodo-head p.eyebrow.eyebrow::before,
+.pq-header p.eyebrow.eyebrow::before{
+  content: "" !important;
+  display: inline-block !important;
+  width: 26px !important;
+  height: 26px !important;
+  background: url("LOGOTIPOS BENUDEA_isotipo.svg") no-repeat center / contain !important;
+  flex-shrink: 0 !important;
+  text-decoration: none !important;
+  align-self: center !important;
+  transform: translateY(-2px) !important;
+}
+
 </style>
 
 <!-- HAMBURGER MÓVIL FIJO -->
@@ -9573,7 +9618,7 @@ html body #mobileMenuPanel button.mobile-menu-close{
 
       <!-- Cabecera -->
       <div class="nosotros-header">
-        <span class="nosotros-eyebrow">Sobre BeNudea</span>
+        <span class="nosotros-eyebrow">Sobre nosotros</span>
         <h2 class="nosotros-claim">Piel desnuda.<br>Sin atajos.</h2>
         <p class="nosotros-lead">Una historia de por qué existimos, contada tal cual sucedió.</p>
       </div>
