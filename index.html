@@ -9100,15 +9100,77 @@ section[id]{
   scroll-margin-top: 110px;
 }
 
-/* ═══════ FIX NAV STICKY debajo del banner beta (2026-08) ═══════ */
-/* El banner beta ocupa 42px (position fixed, z-index 99999).
-   Nav debe quedar sticky justo debajo (top: 42px) y visible siempre al scroll. */
-nav{
-  position: sticky !important;
+/* ═══════ NAV FIXED SIEMPRE (desktop + móvil) — logo grande, ocupa mínimo espacio ═══════ */
+html body nav{
+  position: fixed !important;
   top: 42px !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
   z-index: 500 !important;
   background: #fff !important;
   box-shadow: 0 2px 12px rgba(0,0,0,0.08) !important;
+  display: block !important;
+}
+/* Body: padding-top para compensar el nav fixed */
+html body{
+  padding-top: calc(42px + 76px) !important; /* banner 42 + nav 76 (compactado) */
+}
+/* Nav DESKTOP: logo CENTRADO arriba + menú CENTRADO debajo (estilo editorial) */
+@media (min-width: 901px){
+  html body nav{
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    min-height: 0 !important;
+  }
+  html body .nav-top{
+    padding: 6px 24px 2px !important;
+    min-height: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: transparent !important;
+    width: 100% !important;
+  }
+  html body .nav-top-left,
+  html body .nav-top-right{ display: none !important; }
+  html body .nav-logo-wrap{
+    position: static !important;
+    left: auto !important; right: auto !important; top: auto !important;
+    transform: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 auto !important;
+  }
+  html body .nav-logo-wrap img{
+    max-height: 62px !important;
+    height: 62px !important;
+    width: auto !important;
+    display: block !important;
+  }
+  html body .nav-bar{
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 26px !important;
+    padding: 2px 20px 8px !important;
+    width: 100% !important;
+    border-top: none !important;
+  }
+  html body .nav-bar > a,
+  html body .nav-bar .mm-dropdown > a{
+    padding: 4px 4px !important;
+    font-size: 14px !important;
+  }
+}
+/* Ajuste del padding-top del body para el nav de 2 líneas (aprox 110px) */
+@media (min-width: 901px){
+  html body{
+    padding-top: calc(42px + 110px) !important;
+  }
 }
 /* SECCIÓN "Es para ti si" — fix móvil */
 @media (max-width: 640px){
@@ -9647,6 +9709,152 @@ html body #editorial .hero-slide-full{
   width: 100% !important;
   height: 100% !important;
   position: relative !important;
+}
+
+/* Tabs del producto (Descripción, Composición, Patentes...) SIEMPRE en 1 línea horizontal */
+html body .prod-tabs-nav{
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 8px !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+html body .prod-tab{
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 12px 14px !important;
+  position: relative !important;
+}
+/* Eliminar cualquier chevron/flecha superpuesto en móvil */
+html body .prod-tab::before{ content: none !important; display: none !important; }
+/* MÓVIL: tabs del producto como ACORDEÓN VERTICAL con chevron
+   + cada panel se abre JUSTO DEBAJO de su tab (movido por JS) */
+@media (max-width: 900px){
+  /* Ganar espacio lateral REAL: quitar todos los padding-x en móvil */
+  html body section.producto-section,
+  html body section#producto,
+  html body #producto,
+  html body .producto-section,
+  html body .producto-section-header{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    max-width: 100% !important;
+  }
+  html body .tab-content-narrow,
+  html body .tab-content-full{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  html body .prod-tab-panel .howto-item,
+  html body .prod-howto-grid-v2,
+  html body .prod-hero-grid{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  html body .prod-tabs-nav{
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+    padding: 12px 0 !important;
+    overflow: visible !important;
+    background: transparent !important;
+    position: relative !important;
+    top: auto !important;
+    margin: 0 0 20px !important;
+    border-bottom: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  html body .prod-tab{
+    padding: 16px 14px !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  /* Panel movido dentro del nav: se muestra justo debajo del tab activo */
+  html body .prod-tabs-nav .prod-tab-panel{
+    order: 0;
+    display: none !important;
+    animation: none !important;
+    margin: 0 !important;
+    padding: 16px 10px !important;
+    background: #FAFAF7 !important;
+    border: 1px solid rgba(127,151,149,0.15) !important;
+    border-radius: 8px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  html body .prod-tabs-nav .prod-tab-panel.active{
+    display: block !important;
+  }
+  /* Cualquier wrapper de main/section en móvil sin padding lateral */
+  html body main,
+  html body .container,
+  html body .content-wrap{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    max-width: 100% !important;
+  }
+  html body .prod-tab{
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    padding: 16px 20px !important;
+    font-size: 15px !important;
+    font-family: var(--font-body) !important;
+    font-weight: 500 !important;
+    color: var(--carbon) !important;
+    background: #fff !important;
+    border: 1px solid rgba(127,151,149,0.25) !important;
+    border-radius: 8px !important;
+    text-align: left !important;
+    white-space: normal !important;
+    box-shadow: none !important;
+    cursor: pointer !important;
+    transition: color 0.2s ease, border-color 0.2s ease !important;
+  }
+  html body .prod-tab::after{
+    content: "" !important;
+    position: static !important;
+    display: inline-block !important;
+    width: 8px !important;
+    height: 8px !important;
+    border-right: 1.5px solid rgba(90,110,109,0.55) !important;
+    border-bottom: 1.5px solid rgba(90,110,109,0.55) !important;
+    border-top: none !important;
+    border-left: none !important;
+    background: transparent !important;
+    left: auto !important; right: auto !important; bottom: auto !important;
+    transform: rotate(45deg) translateY(-2px) !important;
+    margin-left: 14px !important;
+    transition: transform 0.3s ease, border-color 0.2s ease !important;
+  }
+  html body .prod-tab.active{
+    color: var(--orange-brand) !important;
+    border-color: var(--orange-brand) !important;
+    background: #fff !important;
+  }
+  html body .prod-tab.active::after{
+    transform: rotate(225deg) translateY(0) !important;
+    border-color: var(--orange-brand) !important;
+  }
 }
 
 /* Fondo BLANCO para toda la sección producto (desktop + móvil) */
@@ -11437,8 +11645,15 @@ function prodCarouselNav(dir){
 
 // Pestañas producto
 function prodTabGo(idx, btn){
+  var isMobile = window.matchMedia('(max-width: 900px)').matches;
+  var wasActive = btn && btn.classList.contains('active');
+  // Cerrar todos primero
   document.querySelectorAll('.prod-tab').forEach(function(t){t.classList.remove('active');});
   document.querySelectorAll('.prod-tab-panel').forEach(function(p){p.classList.remove('active');});
+  // En MÓVIL, si se pulsa el mismo tab ya activo, quedar cerrado (toggle)
+  if (isMobile && wasActive){
+    return; // no reabrir → queda cerrado
+  }
   if (btn) btn.classList.add('active');
   var panel = document.querySelector('.prod-tab-panel[data-tab="' + idx + '"]');
   if (panel) panel.classList.add('active');
@@ -11476,6 +11691,41 @@ function prodZoomMove(e){
     lens.style.top = (y - 60) + 'px';
   }
 }
+
+// En MÓVIL (<=900px), reordenar los prod-tab-panel para que cada uno quede JUSTO DEBAJO de su tab (acordeón real)
+(function(){
+  function reorderProdTabsMobile(){
+    var isMobile = window.matchMedia('(max-width: 900px)').matches;
+    var nav = document.querySelector('.prod-tabs-nav');
+    if (!nav) return;
+    var tabs = document.querySelectorAll('.prod-tab');
+    var panels = document.querySelectorAll('.prod-tab-panel');
+    if (isMobile){
+      // Mover cada panel justo después de su tab correspondiente, DENTRO del nav
+      tabs.forEach(function(tab, i){
+        var panel = panels[i];
+        if (panel && tab.parentNode){
+          // Si el panel no está justo después del tab, moverlo
+          if (tab.nextElementSibling !== panel){
+            tab.parentNode.insertBefore(panel, tab.nextElementSibling);
+          }
+        }
+      });
+    } else {
+      // Desktop: restaurar panels fuera del nav (después del nav)
+      panels.forEach(function(panel){
+        if (panel.parentNode === nav){
+          nav.parentNode.insertBefore(panel, nav.nextElementSibling);
+        }
+      });
+    }
+  }
+  document.addEventListener('DOMContentLoaded', reorderProdTabsMobile);
+  window.addEventListener('resize', function(){
+    clearTimeout(window._reorderTimer);
+    window._reorderTimer = setTimeout(reorderProdTabsMobile, 150);
+  });
+})();
 
 // Toggle tiles Es para ti si
 function toggleEptiTile(el){
